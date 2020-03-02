@@ -1,5 +1,5 @@
 # Netlab
- - nastroj pro testovani Bird-u
+Nastroj pro testovani Bird-u
 
 ## test cases
   Jde o nastaveni topologii, pro specificke protokoly. Definovane protokoly maji individualni atributy, jejiz soucinost se ma   testovat
