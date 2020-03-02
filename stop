@@ -1,0 +1,7 @@
+#!/bin/bash
+
+. netlab_lib
+
+netlab_stop
+
+unlink config
