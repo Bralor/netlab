@@ -1,2 +1,2 @@
 # netlab_test
- - osobni repositar pro upravovani testovaciho toolu Netlab
+ - osobni repositar pro upravovani testovaciho toolu Netlab,
