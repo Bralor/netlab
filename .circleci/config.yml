@@ -20,7 +20,7 @@ jobs:
       - run:
           name: Download & setup BIRD
           command: |
-            cd home/
+            ls -la
             sudo git clone https://gitlab.labs.nic.cz/labs/bird
             cd bird/
             sudo autoreconf
