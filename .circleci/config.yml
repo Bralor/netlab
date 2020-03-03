@@ -26,3 +26,10 @@ jobs:
             sudo autoreconf
             sudo ./configure
             sudo make
+
+      - run:
+          name: Setup NETLAB
+          command: |
+            cd ../
+            sudo cp bird/bird bird/birdc netlab/common 
+            ls -l netlab/common
