@@ -1,8 +1,16 @@
 import os
+import sys
 import pytest
+from inspect import getsourcefile
+
 from pytest import ExitCode
 
+current_dir = os.path.dirname(os.path.abspath(getsourcefile(lambda: 0)))
+sys.path.insert(0, current_dir[: current_dir.rfind(os.path.sep)])
+
 import tests.config as cf
+
+sys.path.pop(0)
 
 
 def init(testdir, save):

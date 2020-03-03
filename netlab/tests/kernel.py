@@ -1,13 +1,17 @@
 import os
 import sys
-import time
 import subprocess
+from time import sleep
+from inspect import getsourcefile
 
-import config as cf
+current_dir = os.path.dirname(os.path.abspath(getsourcefile(lambda: 0)))
+sys.path.insert(0, current_dir[: current_dir.rfind(os.path.sep)])
+
+import tests.config as cf
 
 
 def wait(sec):
-    time.sleep(sec)
+    sleep(sec)
 
 
 def save_krt_routes(key, dev, ip=4):
@@ -44,7 +48,7 @@ def check_krt_routes_timeout(key, dev, timeout=60):
         elif sec == timeout - 1:
             assert 0
         else:
-            time.sleep(1)
+            sleep(1)
 
 
 def modify_command(dev: str) -> str:

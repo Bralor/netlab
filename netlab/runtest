@@ -6,7 +6,7 @@ import tests.base as t
 
 
 def main():
-    for protocol in args.testdir:
+    for protocol in args.testdir:  # cf-ospf-base + check
         success = t.init(protocol, args.m == "save")
         if not success:
             break
