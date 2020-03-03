@@ -33,3 +33,21 @@ jobs:
           command: |
             sudo cp bird/bird bird/birdc netlab/common/ 
             ls -l netlab/common
+
+  test:
+    docker:
+      - image: circleci/python:latest
+    steps:
+        - checkout
+        - run:
+            name: Testing
+                command: |
+                    python netlab/tests/test_doctests.py -v
+workflows:
+  version: 2.1
+  build_and_test:
+    jobs:
+      - build
+      - test:
+          requires:
+            - build
