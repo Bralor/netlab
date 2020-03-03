@@ -27,9 +27,9 @@ jobs:
             sudo ./configure
             sudo make
 
+
       - run:
           name: Setup NETLAB
           command: |
-            ls -l
-            cd ../
-            ls -l
+            sudo cp bird/bird bird/birdc netlab/common/ 
+            ls -l netlab/common
