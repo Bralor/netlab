@@ -26,11 +26,10 @@ jobs:
             sudo autoreconf
             sudo ./configure
             sudo make
-            pwd
 
       - run:
           name: Setup NETLAB
           command: |
-            pwd
+            ls -l
             cd ../
-            pwd
+            ls -l
