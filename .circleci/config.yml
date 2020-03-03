@@ -26,10 +26,11 @@ jobs:
             sudo autoreconf
             sudo ./configure
             sudo make
+            pwd
 
       - run:
           name: Setup NETLAB
           command: |
+            pwd
             cd ../
-            sudo cp bird/bird bird/birdc netlab/common 
-            ls -l netlab/common
+            pwd
