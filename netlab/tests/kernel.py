@@ -3,7 +3,7 @@ import sys
 import time
 import subprocess
 
-import tests.config as cf
+import config as cf
 
 
 def wait(sec):

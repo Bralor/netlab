@@ -1,14 +1,22 @@
 import doctest
 
-VAR1 = 1
+from kernel import modify_command
 
 
 def test_func():
     """
     # sample of doctest:
-    >>> sum = 2 + VAR1
+    >>> sum = 2 + 1
     >>> print(sum)
     3
+    """
+
+
+def test_modify_command():
+    """
+    # sample of existing function
+    >>> modify_command('mn')
+    'cd mn && sudo ./birdc -l show protocols'
     """
 
 
