@@ -1,53 +1,53 @@
 version: 2.1
 jobs:
-  build:
-    docker:
-      - image: circleci/python:latest
-    steps:
-      - checkout
-      - run:
-          name: Update system
-          command: |
-            sudo apt-get -y update
-            sudo apt-get -y upgrade
-            sudo apt-get -y install autoconf \
-                build-essential \
-                flex \
-                bison \
-                ncurses-dev \
-                libreadline-dev
+    build:
+        docker:
+            - image: circleci/python:latest
+        steps:
+            - checkout
+            - run:
+                name: Update system
+                command: |
+                    sudo apt-get -y update
+                    sudo apt-get -y upgrade
+                    sudo apt-get -y install autoconf \
+                        build-essential \
+                        flex \
+                        bison \
+                        ncurses-dev \
+                        libreadline-dev
 
-      - run:
-          name: Download & setup BIRD
-          command: |
-            ls -la
-            sudo git clone https://gitlab.labs.nic.cz/labs/bird
-            cd bird/
-            sudo autoreconf
-            sudo ./configure
-            sudo make
+            - run:
+                name: Download & setup BIRD
+                command: |
+                    ls -la
+                    sudo git clone https://gitlab.labs.nic.cz/labs/bird
+                    cd bird/
+                    sudo autoreconf
+                    sudo ./configure
+                    sudo make
 
+            - run:
+                name: Setup NETLAB
+                command: |
+                    sudo cp bird/bird bird/birdc netlab/common/ 
+                    ls -l netlab/common
 
-      - run:
-          name: Setup NETLAB
-          command: |
-            sudo cp bird/bird bird/birdc netlab/common/ 
-            ls -l netlab/common
-
-  test:
-    docker:
-      - image: circleci/python:latest
-    steps:
-        - checkout
-        - run:
-            name: Testing
+    test:
+        docker:
+            - image: circleci/python:latest
+        steps:
+            - checkout
+            - run:
+                name: Testing
                 command: |
                     python netlab/tests/test_doctests.py -v
+
 workflows:
-  version: 2.1
-  build_and_test:
-    jobs:
-      - build
-      - test:
-          requires:
-            - build
+    version: 2.1
+    build_and_test:
+        jobs:
+        - build
+        - test:
+            requires:
+                - build
