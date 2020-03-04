@@ -61,12 +61,12 @@ Tool for setting BIRD topology and configuration testing.
       └──────────────────────────┘        
 ```
 #### Settings:
-  AS1: M44 --> M11 (ebgp4, ebgp6),
-  AS1: M11, M13, M14 (ibgp4, ibgp6),
-  AS1: M12 --> M13 (ospf4, ospf6),
-  AS1: M13 --> M14 (ibgp4, ibgp6),
-  AS1: M13 --> M21 (ebgp4, ebgp6),
-  AS1: M14, M13, M11 (ibgp4, ibgp6),
+  - AS1: M44 --> M11 (ebgp4, ebgp6),
+  - AS1: M11, M13, M14 (ibgp4, ibgp6),
+  - AS1: M12 --> M13 (ospf4, ospf6),
+  - AS1: M13 --> M14 (ibgp4, ibgp6),
+  - AS1: M13 --> M21 (ebgp4, ebgp6),
+  - AS1: M14, M13, M11 (ibgp4, ibgp6),
   ...
 
 ### test-cf-bgp-auth
