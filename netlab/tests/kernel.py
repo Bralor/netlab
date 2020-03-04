@@ -44,9 +44,9 @@ def check_krt_routes(key, dev, ip=4):
 def check_krt_routes_timeout(key, dev, timeout=60):
     for sec in range(timeout):
         if check_krt_routes(key, dev):
-            assert 1
+            assert True
         elif sec == timeout - 1:
-            assert 0
+            assert False
         else:
             sleep(1)
 
@@ -59,18 +59,12 @@ def save_stdout(cmd: str) -> str:
     """Run the command :cmd: and return it as variable (stdout)"""
     process = subprocess.Popen(cmd, stdout=subprocess.PIPE, shell=True)
     proc_stdout = process.communicate()[0].strip()
-
     return proc_stdout.decode("utf-8")
 
 
 def get_attributes_from_output(data: str, protocol: str) -> list:
     """Parse the string from parameter and return list"""
     return [line.split() for line in data.split("\n") if line.startswith(protocol)]
-
-
-def check_running_protocols(data: list) -> None:
-    """Assertion that all protocols are running properly"""
-    assert "Running" or "Established" in data
 
 
 def check_protocol_state(dev: str, protocol: str) -> None:
@@ -86,6 +80,18 @@ def check_protocol_state(dev: str, protocol: str) -> None:
 
     for line in clean_str:
         check_running_protocols(line)
+
+
+def nodes_with_password(dev: str, protocol: str) -> dict:
+    command = modify_command(dev)
+    decoded = save_stdout(command)
+    cleaned = get_attributes_from_output(decoded, protocol)
+    return {str(index): {lst[0]: lst[-1]} for index, lst in enumerate(cleaned)}
+
+
+def check_running_protocols(data: list) -> None:
+    """Assertion that all protocols are running properly"""
+    assert "Running" or "Established" in data
 
 
 def test_krt_routes(key, dev, protocol):
