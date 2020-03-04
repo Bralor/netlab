@@ -72,26 +72,40 @@ def check_protocol_state(dev: str, protocol: str) -> None:
     1. Modify the specified bash command with proper variable
     2. Send bash command into the function and return output as str
     3. Collect all desirable lines into single list
-    4. If every single line contains "Running" as a state --> pass
+    4. If the name of the protocol is "ospf", run OSPF checker
+    5. ... is "bgp", run BGP checker
     """
     command = modify_command(dev)
     decoded = save_stdout(command)
     clean_str = get_attributes_from_output(decoded, protocol)
 
     for line in clean_str:
-        check_running_protocols(line)
+        if protocol == "ospf":
+            check_running_ospf(line)
+
+        elif protocol == "bgp":
+            check_established_bgp(line)
 
 
-def nodes_with_password(dev: str, protocol: str) -> dict:
+def check_nodes_with_password(dev: str, protocol: str) -> dict:
+    """
+    1. Modify the specified bash command with proper variable
+    2. Send bash command into the function and return output as str
+    3. Collect all the protocol with "password"
+    4. Return dictionary with pairs - name: state
+    """
     command = modify_command(dev)
     decoded = save_stdout(command)
     cleaned = get_attributes_from_output(decoded, protocol)
     return {str(index): {lst[0]: lst[-1]} for index, lst in enumerate(cleaned)}
 
 
-def check_running_protocols(data: list) -> None:
-    """Assertion that all protocols are running properly"""
-    assert "Running" or "Established" in data
+def check_running_ospf(data: list) -> None:
+    assert "Running" in data
+
+
+def check_established_bgp(data: list) -> None:
+    assert "Established" in data
 
 
 def test_krt_routes(key, dev, protocol):
