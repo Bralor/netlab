@@ -1,8 +1,6 @@
 import doctest
 
 from kernel import modify_command
-from kernel import save_stdout
-from kernel import get_attributes_from_output
 from base import run
 
 
