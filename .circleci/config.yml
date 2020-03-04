@@ -41,7 +41,7 @@ jobs:
             - run:
                 name: Testing
                 command: |
-                    python netlab/tests/test_doctests.py -v
+                    pip install requirements.txt
 
 workflows:
     version: 2.1
