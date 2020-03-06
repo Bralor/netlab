@@ -3,7 +3,6 @@ import sys
 import pytest
 from inspect import getsourcefile
 
-
 current_dir = os.path.dirname(os.path.abspath(getsourcefile(lambda: 0)))
 sys.path.insert(0, current_dir[: current_dir.rfind(os.path.sep)])
 
@@ -26,14 +25,15 @@ def init(testdir, save):
 
 
 def run():
+    striped = cf.testdir.strip("/")
     modename = "save" if cf.save else "check"
     print("Running", cf.testdir, "in", modename, "mode")
-    return pytest.main(["-x", "-v", f"{cf.testdir}/test-{cf.testdir}.py"]) == 0
+    return pytest.main(["-x", "-v", f"{striped}/test-{striped}.py"]) == 0
 
 
 def cleanup():
     clean_dirs()
-    os.system(f"./stop")
+    os.system(f"./stop && ./clean.sh")
 
 
 def init_dir(dir):
