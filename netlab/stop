@@ -4,4 +4,6 @@
 
 netlab_stop
 
-unlink config
+if [ -L config ]
+then unlink config
+fi
