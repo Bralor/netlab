@@ -1,5 +1,55 @@
 # Netlab
-Tool for setting BIRD topology and configuration testing.
+Tool for defining the BIRD topology and its configuration.
+## Content
+
+/netlab
+ ├─Installation
+ ├─Usage
+ ├─test cases
+ | ├─Introduction
+ | ├─Usage
+ | ├─cf-<test_case_1>
+ | ├─cf-<test_case_2>
+ | └─cf-<test_case_3>
+ |
+ ├─test suits
+ | ├─Introduction
+ | ├─Usage
+ | ├─tests/kernel.py
+ | ├─test-<test_suit_1>
+ | ├─test-<test_suit_2>
+ | ├─test-<test_suit_3>
+ |
+
+
+## Installation
+1. BIRD dependencies installation (distro: debian:latest):
+    sudo apt-get -y update
+    sudo apt-get -y upgrade
+    sudo apt-get -y install autoconf \
+        build-essential \
+        flex \
+        bison \
+        ncurses-dev \
+        libreadline-dev
+
+2. BIRD installation (from official repository):
+    sudo git clone https://gitlab.labs.nic.cz/labs/bird
+    cd bird/
+    sudo autoreconf
+    sudo ./configure
+    sudo make
+
+3. NETLAB installation (from official repository):
+    sudo git clone https://gitlab.labs.nic.cz/labs/bird-tools
+    sudo cp bird/bird bird/birdc netlab/common/
+
+4. NETLAB dependencies installation:
+    pip install -r requirements.txt
+
+
+## Usage
+
 
 ## test case
   Individual topology settings for different protocols.
@@ -8,7 +58,13 @@ Tool for setting BIRD topology and configuration testing.
 ## test suits
   Set of tests that verifies the functionality of test cases.
   examples: kernel.py (basic test-case), test-<test_case>.py
-  
+
+
+### tests/kernel.py
+File contains basic tests. These tests contains basic integration tests to verify if there are correct krt tables returning from the netlab.
+#### test_wait
+Wait until time is up. Variable "LIMIT" specify the time value (default LIMIT = 60).
+#### test_
 ### test-cf-ospf-base.py
 #### Topology:
 ```
