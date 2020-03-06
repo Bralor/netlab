@@ -26,7 +26,4 @@
 10.6.21.0/24 via 10.0.7.6 dev ve3 proto bird metric 32 
 10.7.1.0/24 via 10.0.7.5 dev ve3 proto bird metric 32 
 10.7.20.0/24 via 10.0.7.5 dev ve3 proto bird metric 32 
-10.7.21.0/24 via 10.0.7.5 dev ve3 proto bird metric 32 
-10.8.1.0/24 via 10.0.7.5 dev ve3 proto bird metric 32 
-10.8.20.0/24 via 10.0.7.5 dev ve3 proto bird metric 32 
-10.8.21.0/24 via 10.0.7.5 dev ve3 proto bird metric 32
+10.7.21.0/24 via 10.0.7.5 dev ve3 proto bird metric 32
