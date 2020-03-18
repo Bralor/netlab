@@ -1,5 +1,6 @@
 # Netlab
 Tool for defining the BIRD topology and its configuration.
+<<<<<<< HEAD
 
 ## Content
   1. Installation
@@ -18,9 +19,33 @@ Tool for defining the BIRD topology and its configuration.
     5.4 test-<test_suit_1>
     5.5 test-<test_suit_2>
     5.6 test-<test_suit_3>
+=======
+## Content
+```
+/netlab
+ ├─Installation
+ ├─Usage
+ ├─test cases
+ | ├─Introduction
+ | ├─Usage
+ | ├─cf-<test_case_1>
+ | ├─cf-<test_case_2>
+ | └─cf-<test_case_3>
+ |
+ ├─test suits
+ | ├─Introduction
+ | ├─Usage
+ | ├─tests/kernel.py
+ | ├─test-<test_suit_1>
+ | ├─test-<test_suit_2>
+ | ├─test-<test_suit_3>
+ |
+```
+>>>>>>> d9637221424e739ebc88b05d1924f8c9577f584b
 
 ## Installation
 1. BIRD dependencies installation (distro: debian:latest):
+```
     sudo apt-get -y update
     sudo apt-get -y upgrade
     sudo apt-get -y install autoconf \
@@ -29,21 +54,27 @@ Tool for defining the BIRD topology and its configuration.
         bison \
         ncurses-dev \
         libreadline-dev
+```
 
 2. BIRD installation (from official repository):
+```
     sudo git clone https://gitlab.labs.nic.cz/labs/bird
     cd bird/
     sudo autoreconf
     sudo ./configure
     sudo make
+```
 
 3. NETLAB installation (from official repository):
+```
     sudo git clone https://gitlab.labs.nic.cz/labs/bird-tools
     sudo cp bird/bird bird/birdc netlab/common/
+```
 
 4. NETLAB dependencies installation:
+```
     pip install -r requirements.txt
-
+```
 
 ## Usage
 
