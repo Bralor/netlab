@@ -1,14 +1,34 @@
+import os
 import doctest
+import subprocess
 
+from kernel import save_stdout
 from kernel import modify_command
-from base import run
+from kernel import write_krt_routes
 
 
 def test_modify_command():
     """
     # sample of existing function
-    >>> modify_command('mn')
-    'cd mn && sudo ./birdc -l show protocols'
+    >>> modify_command("m_test")
+    'cd m_test && sudo ./birdc -l show protocols'
+    """
+
+
+# def test_save_stdout():
+#     """
+#     # test function save_stdout(cmd):
+#     >>> save_stdout("cd tests && ls")
+#     'base.py\nconfig.py\nkernel.py\nkrt_m_test\n__pycache__\ntest_doctests.py'
+#     """
+
+
+def test_write_krt_route():
+    """
+    # testing function write_krt_routes():
+    >>> write_krt_routes(filename:="tests/krt_m_test", content='')
+    >>> bool(filename.split('/')[1] in os.listdir("tests"))
+    True
     """
 
 
