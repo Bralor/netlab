@@ -1,26 +1,23 @@
 # Netlab
 Tool for defining the BIRD topology and its configuration.
+
 ## Content
-
-/netlab
- ├─Installation
- ├─Usage
- ├─test cases
- | ├─Introduction
- | ├─Usage
- | ├─cf-<test_case_1>
- | ├─cf-<test_case_2>
- | └─cf-<test_case_3>
- |
- ├─test suits
- | ├─Introduction
- | ├─Usage
- | ├─tests/kernel.py
- | ├─test-<test_suit_1>
- | ├─test-<test_suit_2>
- | ├─test-<test_suit_3>
- |
-
+  1. Installation
+  2. Usage
+  3. Folder content
+  4. test cases
+    4.1 Introduction
+    4.2 Usage
+    4.4 cf-<test_case_1>
+    4.5 cf-<test_case_2>
+    4.6 cf-<test_case_3>
+  5. test suits
+    5.1 Introduction
+    5.2 Usage
+    5.3 tests/kernel.py
+    5.4 test-<test_suit_1>
+    5.5 test-<test_suit_2>
+    5.6 test-<test_suit_3>
 
 ## Installation
 1. BIRD dependencies installation (distro: debian:latest):
@@ -50,6 +47,27 @@ Tool for defining the BIRD topology and its configuration.
 
 ## Usage
 
+## Folder content
+  /netlab
+    ├─cases
+    | ├─cf-<test_case_1>
+    | ├─cf-<test_case_2>
+    | ├─cf-<test_case_3>
+    | ├─cf-...
+    | ...
+    ├─common
+    | ├─common.start
+    | ├─common.stop
+    | └─NOTES
+    ├─netlab_lib
+    ├─runtest
+    ├─start
+    ├─stop
+    └─tests
+      ├─base.py
+      ├─config.py
+      ├─kernel.py
+      └─test_doctests.py
 
 ## test case
   Individual topology settings for different protocols.
