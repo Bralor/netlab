@@ -41,6 +41,19 @@ def check_krt_routes(key, dev, ip=4):
         return mn_table_cont == content
 
 
+# TIME MEASURE
+# def check_krt_routes(key, dev, ip=4):
+#     """Check the content of actual tables and the original"""
+#     filename = f"cases/cf-ospf-base/data/{key}-{dev}"
+#     mn_table_cont = save_stdout(f"sudo ip netns exec {dev} ip -{ip} route show").split(
+#         "\n"
+#     )
+#     content = read_krt_routes(filename)
+
+#     for _ in mn_table_cont:
+#         return mn_table_cont == content
+
+
 def check_krt_routes_timeout(key, dev, timeout=60):
     for sec in range(timeout):
         if check_krt_routes(key, dev):
