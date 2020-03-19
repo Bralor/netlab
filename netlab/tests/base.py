@@ -25,10 +25,11 @@ def init(testdir, save):
 
 
 def run():
-    striped = cf.testdir.strip("/")
+    striped = cf.testdir.rstrip("/")
+    test_name = cf.testdir.split("/", 1)[1].rstrip("/")
     modename = "save" if cf.save else "check"
     print("Running", cf.testdir, "in", modename, "mode")
-    return pytest.main(["-x", "-v", f"{striped}/test-{striped}.py"]) == 0
+    return pytest.main(["-x", "-v", f"{striped}/test-{test_name}.py"]) == 0
 
 
 def cleanup():
