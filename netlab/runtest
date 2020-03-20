@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
-
 import os
 import sys
+import pickle
 import argparse
 
 import tests.base as t
@@ -12,12 +12,16 @@ parser.add_argument("testdir", nargs="*")
 parser.parse_args("testdir".split())
 args = parser.parse_args()
 
+
 for testdir in args.testdir:
-    success = t.init(testdir, args.m == "save")
+    with open("common/runtest_args.pckl", "wb") as args_file:
+        pickle.dump((testdir, args.m), args_file)
+
+    success = t.init(testdir, args.m)
     if not success:
         sys.exit(1)
 
-    success = t.run()
+    success = t.run(testdir, args.m)
     if not success:
         sys.exit(1)
-    t.cleanup()
+    t.cleanup(testdir, args.m)
