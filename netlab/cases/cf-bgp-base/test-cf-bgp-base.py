@@ -1,13 +1,26 @@
+import os
+import sys
+import pickle
 import pytest
+from inspect import getsourcefile
+
+current_dir = os.path.dirname(os.path.abspath(getsourcefile(lambda: 0)))
+sys.path.insert(0, current_dir.rsplit(os.path.sep, 2)[0])
 import tests.kernel as tk
 
-LIMIT = 60
+sys.path.pop(0)
 
 
-@pytest.mark.skipif(tk.cf.save == False, reason="mode: save")
+_LIMIT = 60
+
+with open("common/runtest_args.pckl", "rb") as args_file:
+    testdir, mode = pickle.load(args_file)
+
+
+@pytest.mark.skipif(mode == "check", reason="mode: save")
 def test_wait():
     """Wait until the time (limit) runs out"""
-    tk.wait(LIMIT)
+    tk.wait(_LIMIT)
 
 
 @pytest.mark.parametrize(
@@ -37,4 +50,4 @@ def test_krt_routes(expected_device):
     1. Check the krt tables in a while
     2. Check the status of specific protocols
     """
-    tk.test_krt_routes("krt", expected_device, "bgp")
+    tk.test_krt_routes(expected_device, "bgp")

@@ -17,10 +17,7 @@ with open("common/runtest_args.pckl", "rb") as args_file:
     testdir, mode = pickle.load(args_file)
 
 
-@pytest.mark.skipif(
-    mode == "check",
-    reason="No need to verify time of convergence during the check mode",
-)
+@pytest.mark.skipif(mode == "check", reason="mode: save")
 def test_wait():
     """Wait until the time (limit) runs out"""
     tk.wait(_LIMIT)
@@ -30,9 +27,5 @@ def test_wait():
     "expected_device", ["m1", "m2", "m3", "m4"],
 )
 def test_krt_routes(expected_device,):
-    """
-    Test kernel routes:
-    -------------------
-         - default parametr :limit: set to the value 60 seconds
-    """
+    """Testing of kernel route tables"""
     tk.test_krt_routes(expected_device, "ospf")

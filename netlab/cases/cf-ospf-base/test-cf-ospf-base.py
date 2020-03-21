@@ -26,6 +26,6 @@ def test_wait():
 @pytest.mark.parametrize(
     "expected_device", ["m1", "m2", "m3", "m4", "m5", "m6", "m7", "m8",],
 )
-def test_krt_routes(expected_device,):
+def test_krt_routes(expected_device):
     """Testing of kernel route tables"""
     tk.test_krt_routes(expected_device, "ospf")
