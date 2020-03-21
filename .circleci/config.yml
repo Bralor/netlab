@@ -42,7 +42,7 @@ jobs:
                 name: Testing
                 command: |
                     pip install -r requirements.txt
-                    pytest netlab/tests
+                    pytest -v netlab/tests
 
 
 workflows:
