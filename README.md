@@ -35,49 +35,50 @@ pip install -r requirements.txt
 ```
 
 ## Usage
-Netlab standarne funguje ve dvou variantach.
+Netlab works by default in two variants.
 
-### 1. Varianta start/stop
-Tato varianta se spousti pres skript :/start:. Vlozenim parametru <test_case> k prepinaci "-c" spusti vybrany testovaci scenar ze slozky :cases:.
-V tomto rezimu je mozne manualne pracovat s kazdym zarizenim individualne. BIRD spoustim u kazdeho zarizeni pomoci skriptu :m<number>/birdc: (dale pouzivam ovladani BIRDu, napoveda = "?"). Pro ukonceni aktualni bezici konfigurace spoustim skript :/stop:.
+### 1. Start/stop option
+This variant is running through script :start:. Inserting the <test_case> parameter to the "-c" switch runs the selected test case from the :cases: folder.
+In this mode it is possible to work with each device individually. Running BIRD for each device with the script :/m<number>/birdc: (for hint, write "?"). To end the current running configuration, run the script :stop:.
 
-Spusteni scenare se zakladni konfiguraci pro protocol OSPF
+Running the scenario with the basic configuration for the OSPF protocol:
 ```
 ./start -c cases/cf-ospf-base  
 ```
-Zastavim bezici konfiguraci
+Stopping the current running test case:
 ```
 ./stop
 ```
 
-### 2. Varianta runtest
-Varianta, v ramci ktere dochazi ke spusteni integracnich testu (viz. (#Test suit)). Nutne spustit s prepinacem "-m". Jde o variantu se dvema rezimy.
+### 2. Runtest option
+A variant in which the integration tests will run (see [test suit](#test-suit)). It is necessary to run with "-m" switch. This option has two modes.
 
-#### 2.1 Rezim SAVE
-Ulozi pro vybrany scenar (scenare) kernelovske routovaci tabulky do adresare :data: v zadanem testovacim scenari.
+#### 2.1 Save mode
+Save the kernel routing tables for selected scenario to :data: folder in the specified test case's folder.
 
-Spusteni scenare se zakladni konfiguraci pro protokol OSPF:
+Running the scenario with the basic configuration for the OSPF protocol:
 ```
 ./runtest -m save cases/cf-ospf-base
 ```
-Spusteni scenare se zakladni konfiguraci pro vsechny protokoly OSPF:
+Running all the scenarios starting with "cf-ospf":
 ```
 ./runtest -m save cases/cf-ospf*
 ```
-#### 2.2 Rezim CHECK
-Porovnava primarne kernelovske routovaci tabulky s aktualniho spusteni s tabulkami z posledniho rezimu SAVE. V tomto rezimu se soucasne vytvori adresar :temp: v rootovskem adresari, kam se ukladaji tabulky z aktualniho spusteni pro pripadne rozdily. Pokud se oba zapisy v tabulkach shoduji, test projde a adresar :temp: se po skonceni odstrani. V opacne variante je mozne zkontrolovat pripadne rozdily.
 
-Spusteni scenare se zakladni konfiguraci pro protokol OSPF:
+#### 2.2 Check mode
+It compares the primary kernel routing tables with the current run with the tables from the last SAVE mode. In this mode, the directory: temp: is created at the same time in the root directory where tables from the current run for any differences are stored. If both entries in the tables match, the test passes and the: temp: directory is removed at the end. In the opposite variant, it is possible to check for any differences.
+
+Running the scenario with the basic configuration for the OSPF protocol:
 ```
 ./runtest -m check cases/cf-ospf-base
 ```
-Spusteni scenare se zakladni konfiguraci pro vsechny protokoly OSPF:
+Running all the scenarios starting with "cf-ospf":
 ```
 ./runtest -m check cases/cf-ospf*
 ```
 
 ## Folder content
-Aktualni obsah adresare :netlab:
+Current directory content :netlab:
 ```
   /netlab
     ├─cases
@@ -102,10 +103,10 @@ Aktualni obsah adresare :netlab:
 ```
 
 ## Test case
-Jde o predem vytvorene konfiguracni soubory, ktere reprezentuji mozne situace v ramci protokolu. Seznam vsech testovacich scenaru se nachazi v adresari :cases:. Kazdy testovaci scenar obsahuje soubor :config:, ktery popisuje celkovou topologii zarizeni. Dale obsahuje konfiguracni soubory pro jednotliva zarizeni (:bird_m<number>.conf:). Adresar take obsahuje slozku :data:, kam se ukladaji routovaci kernelovske tabulky v rezimu SAVE (viz. [Usage](#rezim-save)).
+These are predefined configuration files that represent possible situations within the protocol. A list of all test scenarios can be found in the directory: cases :. Each test scenario contains a file: config:, which describes the overall device topology. It also contains configuration files for each device (: bird_m <number> .conf :). The directory also contains a folder: data: where the routing kernel tables are stored in SAVE mode (see [Usage](#21-save-mode)).
 
-### Varianty pro protokol OSPF
-#### Topologie
+### Variants for the OSPF protocol
+#### Topology
 ```
       ┌─────┐
   M1 -|M3 M5| - M7
@@ -113,7 +114,7 @@ Jde o predem vytvorene konfiguracni soubory, ktere reprezentuji mozne situace v 
   M2 -|M4 M6| - M8
       └─────┘
 ```
-#### Popis
+#### Description
 - cf-ospf
 - cf-ospf-authentication
 - cf-ospf-base
@@ -125,8 +126,8 @@ Jde o predem vytvorene konfiguracni soubory, ktere reprezentuji mozne situace v 
 - cf-ospf-priority
 - cf-ospf-ptmp
 
-### Varianty pro protokol BGP
-#### Topologie
+### Variants for the BGP protocol
+#### Topology
 ```
        ┌──────────────────────────┐       
        |      M12 ──── M13     AS1|       
@@ -156,7 +157,7 @@ Jde o predem vytvorene konfiguracni soubory, ktere reprezentuji mozne situace v 
       └──────────────────────────┘        
 ```
 
-#### Popis
+#### Description
 ##### cf-bgp-base
 - AS1: M44 --> M11 (ebgp4, ebgp6),
 - AS1: M11, M13, M14 (ibgp4, ibgp6),
@@ -177,5 +178,5 @@ Configuration settings with parameter "ttl security":
 
 
 ## Test suit
-Jde o balik se specifickymi testy, ktere overuji prubeh konkretniho testovaci scenare. Kazdy testovaci scenar ma zakladni testovaci balik (:cases/cf-<test_case>/test-<test_case>.py:). Jde o zakladni testy overujici stav routovaci tabulky. Dale obsahuje testy, ktere jsou pro jednotlive testovaci scenare individualni.
-Testovaci balik :cases/cf-<test_case>/test-<test_case>.py: je pouze spoustecim souborem pro nastroj Pytest. Vlastni testovaci funkce se nachazi v souboru :/tests/kernel.py:. Pytest vzdy testuje vsechna definovana zarizeni.
+It is a package with specific tests that verify the specific testing case. Each test case has a basic test package (:cases/cf-<test_case>/test-<test_case>.py:). These are basic tests verifying the routing table content. It also contains tests that are individual to each test case.
+The test package :cases/cf-<test_case>/test-<test_case>.py: is only a starting file for the tool Pytest. The test function itself is in the file :/tests/kernel.py:. The patch always tests all defined devices.
