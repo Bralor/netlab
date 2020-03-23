@@ -2,7 +2,7 @@
 Tool for designing the BIRD topology and its configuration.
 
 ## Installation
-1. BIRD dependencies installation (distro: debian:latest):
+### 1. BIRD dependencies installation (distro: debian:latest):
 ```
 sudo apt-get -y update
 sudo apt-get -y upgrade
@@ -14,7 +14,7 @@ sudo apt-get -y install autoconf \
     libreadline-dev
 ```
 
-2. BIRD installation (from official repository):
+### 2. BIRD installation (from official repository):
 ```
 sudo git clone https://gitlab.labs.nic.cz/labs/bird
 cd bird/
@@ -23,19 +23,19 @@ sudo ./configure
 sudo make
 ```
 
-3. NETLAB installation (from official repository):
+### 3. NETLAB installation (from official repository):
 ```
 sudo git clone https://gitlab.labs.nic.cz/labs/bird-tools
 sudo cp bird/bird bird/birdc netlab/common/
 ```
 
-4. NETLAB dependencies installation:
+### 4. NETLAB dependencies installation:
 ```
 pip install -r requirements.txt
 ```
 
 ## Usage
-Netlab works by default in two variants.
+Netlab works by default in two different variants.
 
 ### 1. Start/stop option
 This variant is running through script :start:. Inserting the <test_case> parameter to the "-c" switch runs the selected test case from the :cases: folder.
@@ -51,7 +51,7 @@ Stopping the current running test case:
 ```
 
 ### 2. Runtest option
-A variant in which the integration tests will run (see [test suit](#test-suit)). It is necessary to run with "-m" switch. This option has two modes.
+A variant in which the integration tests will run (see [Test suits](#test-suit)). It is necessary to run with "-m" switch. This option has two modes.
 
 #### 2.1 Save mode
 Save the kernel routing tables for selected scenario to :data: folder in the specified test case's folder.
@@ -103,7 +103,7 @@ Current directory content :netlab:
 ```
 
 ## Test case
-These are predefined configuration files that represent possible situations within the protocol. A list of all test scenarios can be found in the directory: cases :. Each test scenario contains a file: config:, which describes the overall device topology. It also contains configuration files for each device (: bird_m <number> .conf :). The directory also contains a folder: data: where the routing kernel tables are stored in SAVE mode (see [Usage](#21-save-mode)).
+These are predefined configuration files that represent possible situations within the protocol. A list of all test scenarios can be found in the directory: cases :. Each test scenario contains a file: config:, which describes the overall device topology. It also contains configuration files for each device (: bird_m <number> .conf :). The directory also contains a folder :data: where the routing kernel tables are stored in SAVE mode (see [Running "save" mode](#21-save-mode)).
 
 ### Variants for the OSPF protocol
 #### Topology
@@ -175,6 +175,8 @@ Configuration settings with parameter "password":
 - M41-M42 --> Passwords are matching,
 
 Configuration settings with parameter "ttl security":
+- M34-M41 --> both devices have ttl security turned on,
+- M44-M11 --> only one of them has ttl security turned on,
 
 
 ## Test suit
