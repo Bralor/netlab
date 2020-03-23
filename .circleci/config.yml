@@ -30,7 +30,7 @@ jobs:
             - run:
                 name: Setup NETLAB
                 command: |
-                    sudo cp bird/bird bird/birdc netlab/common/ 
+                    sudo cp bird/bird bird/birdc netlab/common/
                     ls -l netlab/common
 
     test:
@@ -41,7 +41,9 @@ jobs:
             - run:
                 name: Testing
                 command: |
-                    python netlab/tests/test_doctests.py -v
+                    pip install -r requirements.txt
+                    pytest -v netlab/tests
+
 
 workflows:
     version: 2.1

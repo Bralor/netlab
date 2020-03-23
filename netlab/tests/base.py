@@ -1,32 +1,26 @@
 import os
+import sys
 import pytest
-from pytest import ExitCode
-
-import tests.config as cf
 
 
-def init(testdir, save):
-    cf.testdir = testdir
-    cf.save = save
-
-    result = os.system(f"./start -c {testdir}")
+def init(tdir, mod):
+    result = os.system(f"./start -c {tdir}")
     if result != 0:
         return False
 
-    init_dirs()
-    init_nodes()
+    init_dirs(tdir, mod)
     return True
 
 
-def run():
-    modename = "save" if cf.save else "check"
-    print("Running", cf.testdir, "in", modename, "mode")
-    return pytest.main(["-x", "-v", f"{cf.testdir}/test-{cf.testdir}.py"]) == 0
+def init_dirs(tdir, mod):
+    global temp_dir
+    temp_dir = "temp"
+    data_dir = f"{tdir}/data"
 
-
-def cleanup():
-    clean_dirs()
-    os.system(f"./stop")
+    if mod == "save":
+        init_dir(data_dir)
+    elif mod == "check":
+        init_dir(temp_dir)
 
 
 def init_dir(dir):
@@ -37,28 +31,27 @@ def init_dir(dir):
         os.mkdir(dir)
 
 
-def init_dirs():
-    cf.tempdir = "temp"
-    cf.datadir = f"{cf.testdir}/data"
-
-    if cf.save:
-        init_dir(cf.datadir)
-    else:
-        init_dir(cf.tempdir)
+def run(tdir, mod):
+    clean_name = tdir.rstrip("/")
+    clean_test = tdir.split("/", 1)[1].rstrip("/")
+    print(f"Running {tdir} in {mod.upper()} mode")
+    return pytest.main(["-x", "-v", f"{clean_name}/test-{clean_test}.py"]) == 0
 
 
-def clean_dirs():
-    if cf.save:
+def cleanup(tdir, mod):
+    clean_dirs(mod)
+    os.system(f"./stop && sudo ./clean.sh")
+    os.remove("common/runtest_args.pckl")
+
+
+def clean_dirs(mod):
+    if mod == "save":
         return
 
-    for _ in os.listdir(cf.tempdir):
-        os.remove(f"{cf.tempdir}/{_}")
+    for _ in os.listdir(temp_dir):
+        os.remove(f"{temp_dir}/{_}")
 
     try:
-        os.rmdir(cf.tempdir)
+        os.rmdir(temp_dir)
     except:
         print("Error in removing temp directory")
-
-
-def init_nodes():
-    cf.nodes = list(filter(lambda n: n[0] == "m", os.listdir(".")))

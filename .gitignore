@@ -1,0 +1,3 @@
+netlab/tests/test_precheck.py
+netlab/tests/test_doctest_base.py
+netlab/.pytest_cache

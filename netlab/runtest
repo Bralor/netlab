@@ -1,27 +1,27 @@
 #!/usr/bin/env python3
 import os
+import sys
+import pickle
 import argparse
 
 import tests.base as t
 
-
-def main():
-    for protocol in args.testdir:
-        success = t.init(protocol, args.m == "save")
-        if not success:
-            break
-
-        success = t.run()
-        if not success and not BATCH:
-            break
-        t.cleanup()
+parser = argparse.ArgumentParser()
+parser.add_argument("-m", choices=["save", "check"])
+parser.add_argument("testdir", nargs="*")
+parser.parse_args("testdir".split())
+args = parser.parse_args()
 
 
-if __name__ == "__main__":
-    parser = argparse.ArgumentParser()
-    parser.add_argument("-m", choices=["save", "check", "batch"])
-    parser.add_argument("testdir", nargs="*")
-    parser.parse_args("testdir".split())
-    args = parser.parse_args()
-    BATCH = args.m == "batch"
-    main()
+for testdir in args.testdir:
+    with open("common/runtest_args.pckl", "wb") as args_file:
+        pickle.dump((testdir, args.m), args_file)
+
+    success = t.init(testdir, args.m)
+    if not success:
+        sys.exit(1)
+
+    success = t.run(testdir, args.m)
+    if not success:
+        sys.exit(1)
+    t.cleanup(testdir, args.m)
