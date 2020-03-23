@@ -1,5 +1,5 @@
 # Netlab
-Tool for defining the BIRD topology and its configuration.
+Tool for designing the BIRD topology and its configuration.
 <<<<<<< HEAD
 
 ## Content
@@ -77,6 +77,22 @@ Tool for defining the BIRD topology and its configuration.
 ```
 
 ## Usage
+Netlab standarne funguje ve dvou variantach:
+1. Varianta start/stop
+  Tato varianta se spousti pres skript :/start:. Vlozenim parametru <test_case> k prepinaci "-c" spusti vybrany testovaci scenar ze slozky :cases:.
+  V tomto rezimu je mozne manualne pracovat s kazdym zarizenim individualne. BIRD spoustim u kazdeho zarizeni pomoci skriptu :m<number>/birdc: (dale pouzivam ovladani BIRDu, napoveda = "?").
+  Pro ukonceni aktualni bezici konfigurace spoustim skript :/stop:.
+  pr. ./start -c cases/cf-ospf-base --> spusti scenar se zakladni konfiguraci pro protocol OSPF.
+
+2. Varianta runtest
+  Varianta, v ramci ktere dochazi ke spusteni integracnich testu (viz. (#Test suit)). Nutne spustit s prepinacem "-m". Jde o variantu se dvema rezimy:
+    2.1 rezim SAVE
+    - ulozi pro vybrany scenar (scenare) kernelovske routovaci tabulky do adresare :data: v zadanem testovacim scenari.
+    pr. ./runtest -m save cases/cf-ospf-base
+
+    2.2 rezim CHECK
+    - porovnava primarne kernelovske routovaci tabulky s aktualniho spusteni s tabulkami z posledniho rezimu SAVE. V tomto rezimu se soucasne vytvori adresar :temp: v rootovskem adresari, kam se ukladaji tabulky z aktualniho spusteni pro pripadne rozdily. Pokud se oba zapisy v tabulkach shoduji, test projde a adresar :temp: se po skonceni odstrani. V opacne variante je mozne zkontrolovat pripadne rozdily.
+    pr. ./runtest -m check cases/cf-ospf* --> spusti vsechny testovaci scenare zacinajici "cf-ospf"
 
 ## Folder content
   /netlab
@@ -100,13 +116,19 @@ Tool for defining the BIRD topology and its configuration.
       ├─kernel.py
       └─test_doctests.py
 
-## test case
-  Individual topology settings for different protocols.
-  examples: cf-bgp, cf-ospf, cf-rip
+## Test case
+Jde o predem vytvorene konfiguracni soubory, ktere reprezentuji mozne situace v ramci protokolu. Seznam vsech testovacich scenaru se nachazi v adresari :cases:. Kazdy testovaci scenar obsahuje soubor :config:, ktery popisuje celkovou topologii zarizeni. Dale obsahuje konfiguracni soubory pro jednotliva zarizeni (:bird_m<number>.conf:). Adresar take obsahuje slozku :data:, kam se ukladaji routovaci kernelovske tabulky v rezimu SAVE (viz. (#Usage)).
+pr. cases
+     ├─cf-<ospf>
+     ├─cf-<babel>
+     ├─cf-<rip>
 
-## test suits
-  Set of tests that verifies the functionality of test cases.
-  examples: kernel.py (basic test-case), test-<test_case>.py
+## Test suit
+Jde o balik se specifickymi testy, ktere overuji prubeh konkretniho testovaci scenare. Kazdy testovaci scenar ma zakladni testovaci balik (:cases/cf-<test_case>/test-<test_case>.py:). Jde o zakladni testy overujici stav routovaci tabulky. Dale obsahuje testy, ktere jsou pro jednotlive testovaci scenare individualni.
+Testovaci balik :cases/cf-<test_case>/test-<test_case>.py: je pouze spoustecim souborem pro nastroj Pytest. Vlastni testovaci funkce se nachazi v souboru :/tests/kernel.py:. Pytest vzdy testuje vsechna definovana zarizeni.
+pr. cases
+    ├─cf-<ospf>
+    | ├─test-<ospf>
 
 
 ### tests/kernel.py
