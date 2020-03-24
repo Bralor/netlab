@@ -1,5 +1,5 @@
 # Netlab
-Tool for designing the BIRD topology and its configuration.
+Tool for the testing of designed BIRD topology and its configuration.
 
 ## Installation
 ### 1. BIRD dependencies installation (distro: debian:latest):
@@ -51,7 +51,7 @@ Stopping the current running test case:
 ```
 
 ### 2. Runtest option
-A variant in which the integration tests will run (see [Test suits](#test-suit)). It is necessary to run with "-m" switch. This option has two modes.
+A variant in which the integration tests will run (see [Test suits](#test-suit)). It is necessary to run with "-m" switch. This flag has two options.
 
 #### 2.1 Save mode
 Save the kernel routing tables for selected scenario to :data: folder in the specified test case's folder.
@@ -115,16 +115,46 @@ These are predefined configuration files that represent possible situations with
       └─────┘
 ```
 #### Description
-- cf-ospf
-- cf-ospf-authentication
-- cf-ospf-base
-- cf-ospf-bfd
-- cf-ospf-custom
-- cf-ospf-default
-- cf-ospf-nbma
-- cf-ospf-net
-- cf-ospf-priority
-- cf-ospf-ptmp
+##### cf-ospf
+This is a legacy case. Supports only 4 devices. Topology is also different than the aformentioned.
+
+##### cf-ospf-authentication
+OSPFv2: plaintext (M1-M3) --> with mismatched passwords
+OSPFv3: HMAC-SHA-1 (M5-M7)
+OSPFv2: MD5 (M1-M2)
+OSPFv3: HMAC-SHA-256 (M7-M8)
+OSPFv2: HMAC-SHA-256 (M2-M4)
+OSPFv3: HMAC-SHA-512 (M6-M8) --> with mismatched passwords
+
+##### cf-ospf-base
+M3, M4, M5 and M6 are connected with multipoint network (if_net)
+M1-M4 --> type PtP
+M5-M8 --> type bcast
+
+##### cf-ospf-bfd
+This configuration has enabled the BFD support on all connections.
+
+##### cf-ospf-custom
+M1-M3; M5-M7 and multipoint --> ttl security
+M6-M8 --> set only on the one device
+M1-M2; M7-M8 --> real broadcast option (only OSPFv2)
+M1-M3; M2-M4 --> link LSA suppression (only OSPFv3)
+
+##### cf-ospf-default
+M1,M4,M6,M7 --> have not explicitly set type and interval
+M2,M3,M5,M8 --> have default values
+
+##### cf-ospf-nbma
+Like the base configuration, but central multipoint network is set as type nbma mode instead of bcast.
+
+##### cf-ospf-net
+in progress
+
+##### cf-ospf-priority
+Priorities are explicitly set on the central multipoint (M3-10; M5-1; M4-0 and M6-0)
+
+##### cf-ospf-ptmp
+Like the base configuration, but central multipoint network is set as type ptmp mode instead of bcast.
 
 ### Variants for the BGP protocol
 #### Topology
