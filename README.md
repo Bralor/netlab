@@ -199,14 +199,14 @@ Like the base configuration, but central multipoint network is set as type ptmp 
 
 ##### cf-bgp-authentication
 Configuration settings with parameter "password":
-- M24-M31 --> Passwords are not matching on the eBGP4,
-- M32-M33 --> Passwords are not matching on the iBGP4,
-- M22-M21 --> Passwords are matching,
-- M41-M42 --> Passwords are matching,
+- M14-M21 --> Passwords do not match, eBGPv4("bird1421", "bird1421"),
+- M24-M31 --> Passwords match, eBGPv6("xxxx1234", "xxxx1234"),
+- M34-M41 --> Passwords match, eBGPv4("borg2345", "borg2345"),
+- M44-M11 --> Passwords do not match, eBGPv6("abcd1234", "abcd1234"),
 
-Configuration settings with parameter "ttl security":
-- M34-M41 --> both devices have ttl security turned on,
-- M44-M11 --> only one of them has ttl security turned on,
+Configuration settings with parameter "ttl security":  # not yet
+- M24-M31 --> both devices has ttl security parameter,
+- M34-M41 --> only one device has ttl security parameter,
 
 
 ## Test suit
