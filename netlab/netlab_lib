@@ -17,6 +17,7 @@ function netlab_init_node()
 	sleep .1
 	ip netns exec $N ip -4 rule add l3mdev priority 1000
 	ip netns exec $N ip -6 rule add l3mdev priority 1000
+	ip netns exec $N ip link set lo up
 }
 
 
@@ -89,7 +90,9 @@ function netlab_stop()
 		ip netns del ${N%/netns}
 	done
 
-	ip netns del $BNS
+	if [ "$(ip netns list | grep $BNS)" = "$BNS" ]
+	then ip netns del $BNS
+	fi
 }
 
 
