@@ -116,7 +116,7 @@ These are predefined configuration files that represent possible situations with
 ```
 #### Description
 ##### cf-ospf
-This is a legacy case. Supports only 4 devices. Topology is also different than the aformentioned.
+This is just legacy case. Supports only 4 devices. Topology is also different than the aformentioned. For further details see [cf-ospf-base](#cf-ospf-base).
 
 ##### cf-ospf-authentication
 OSPFv2: plaintext (M1-M3) --> with mismatched passwords
@@ -155,6 +155,24 @@ Priorities are explicitly set on the central multipoint (M3-10; M5-1; M4-0 and M
 
 ##### cf-ospf-ptmp
 Like the base configuration, but central multipoint network is set as type ptmp mode instead of bcast.
+
+#### cf-ospf-vrf
+This configuration has three different cycles with single common device named "M1".
+```
+M9────M8 M7────M6
+|      | |      |
+|      | |      |
+M10─────M1─────M5
+       /  \
+      /    \
+    M2      M4
+      \    /
+       \  /
+        M3
+```
+1. VRF1: M1, M2, M3, M4
+2. VRF2: M1, M5, M6, M7
+3. VRF3: M1, M8, M9, M10
 
 ### Variants for the BGP protocol
 #### Topology
