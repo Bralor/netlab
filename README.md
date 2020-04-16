@@ -51,7 +51,7 @@ Stopping the current running test case:
 ```
 
 ### 2. Runtest option
-A variant in which the integration tests will run (see [Test suits](#test-suit)). It is necessary to run with "-m" switch. This flag has two options.
+A variant in which the integration tests will run (see [Test suits](#test-suite)). It is necessary to run with "-m" switch. This flag has two options.
 
 #### 2.1 Save mode
 Save the kernel routing tables for selected scenario to :data: folder in the specified test case's folder.
@@ -170,9 +170,9 @@ M10─────M1─────M5
        \  /
         M3
 ```
-1. VRF1: M1, M2, M3, M4
-2. VRF2: M1, M5, M6, M7
-3. VRF3: M1, M8, M9, M10
+1. M1, M2, M3, M4: there is no VRF
+2. M1, M5, M6, M7: there is VRF on M1
+3. M1, M8, M9, M10: there is VRF on the all routers
 
 ### Variants for the BGP protocol
 #### Topology
@@ -227,6 +227,13 @@ Configuration settings with parameter "ttl security":  # not yet
 - M34-M41 --> only one device has ttl security parameter,
 
 
-## Test suit
-It is a package with specific tests that verify the specific testing case. Each test case has a basic test package (:cases/cf-<test_case>/test-<test_case>.py:). These are basic tests verifying the routing table content. It also contains tests that are individual to each test case.
+## Test suite
+It is a package with specific tests that verify the specific testing case. Each test case has a basic test package (:cases/cf-<test_case>/test-<test_case>.py:).  It also contains tests that are individual to each test case.
 The test package :cases/cf-<test_case>/test-<test_case>.py: is only a starting file for the tool Pytest. The test function itself is in the file :/tests/kernel.py:. The patch always tests all defined devices.
+
+### Basic test suite
+This test suite is located in a specific test case. By default named _test-<test-case>.py_. Basic test suite has two parts. The first part runs only in [save mode](#21-save-mode). During this mode, routing tables are saved in the folder _data_ (:/cases/<test-case>/data:). The second part runs only in [check mode](#22-check-mode). The tables we have obtained in previous part are compared with current tables. After a while, when they are same, the test will pass. If they are different, the test will fail.
+
+### Specific test suite
+These tests belongs to the certain test cases. They are not common to all test cases.
+ 
