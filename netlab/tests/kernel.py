@@ -5,13 +5,11 @@ import subprocess
 from time import sleep
 
 
-def test_krt_routes(dev, protocol):
-    tdir, mod = load_args_from_file()
+def test_krt_routes(dev, tdir, mod):
     if mod == "save":
         save_krt_routes(dev, tdir)
     else:
         check_krt_routes_timeout(dev, tdir)
-        check_protocol_state(dev, protocol)
 
 
 def wait(sec: int) -> None:
