@@ -24,13 +24,6 @@ def test_wait():
     tk.wait(LIMIT)
 
 
-@pytest.mark.skipif(mode == "check", reason="mode: save")
 @pytest.mark.parametrize("exp_devs", EXPECTED_DEVICES)
-def test_save_krt_tables(exp_devs):
-    tk.save_krt_routes(exp_devs, testdir)
-
-
-@pytest.mark.skipif(mode == "save", reason="mode: check")
-@pytest.mark.parametrize("exp_devs", EXPECTED_DEVICES)
-def test_check_krt_routes_timeout(exp_devs):
-    tk.check_krt_routes_timeout(exp_devs, testdir)
+def test_krt_tables(exp_devs):
+    tk.test_krt_routes(exp_devs, testdir, mode)
