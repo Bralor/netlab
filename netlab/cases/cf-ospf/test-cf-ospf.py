@@ -11,7 +11,8 @@ import tests.kernel as tk
 sys.path.pop(0)
 
 
-_LIMIT = 60
+LIMIT = 60
+EXPECTED_DEVICES = ("m1", "m2", "m3", "m4")
 
 with open("common/runtest_args.pckl", "rb") as args_file:
     testdir, mode = pickle.load(args_file)
@@ -20,12 +21,9 @@ with open("common/runtest_args.pckl", "rb") as args_file:
 @pytest.mark.skipif(mode == "check", reason="mode: save")
 def test_wait():
     """Wait until the time (limit) runs out"""
-    tk.wait(_LIMIT)
+    tk.wait(LIMIT)
 
 
-@pytest.mark.parametrize(
-    "expected_device", ["m1", "m2", "m3", "m4"],
-)
-def test_krt_routes(expected_device,):
-    """Testing of kernel route tables"""
-    tk.test_krt_routes(expected_device, "ospf")
+@pytest.mark.parametrize("exp_devs", EXPECTED_DEVICES)
+def test_krt_routes(exp_devs):
+    tk.test_krt_routes(exp_devs, testdir, mode)
