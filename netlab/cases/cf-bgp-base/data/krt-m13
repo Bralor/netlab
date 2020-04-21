@@ -1,4 +1,4 @@
-10.1.0.0/16 via 10.1.11.1 dev ve2 proto bird metric 32 
+unreachable 10.1.0.0/16 proto bird metric 32 
 10.1.1.0/24 via 10.1.11.1 dev ve2 proto bird metric 32 
 10.1.2.0/24 via 10.1.11.1 dev ve2 proto bird metric 32 
 10.1.3.0/24 dev ve0 proto kernel scope link src 10.1.3.1 

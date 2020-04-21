@@ -5,13 +5,11 @@ import subprocess
 from time import sleep
 
 
-def test_krt_routes(dev, protocol):
-    tdir, mod = load_args_from_file()
+def test_krt_routes(dev, tdir, mod):
     if mod == "save":
         save_krt_routes(dev, tdir)
     else:
         check_krt_routes_timeout(dev, tdir)
-        check_protocol_state(dev, protocol)
 
 
 def wait(sec: int) -> None:
@@ -74,6 +72,9 @@ def check_krt_routes(dev: str, protocol: str, ip: int = 4) -> bool:
     """Check the content of actual tables and the original"""
     filename = f"{protocol}/data/krt-{dev}"
     mn_table_cont = save_stdout(f"ip netns exec {dev} ip -{ip} route show").split("\n")
+    os.system(
+        f"ip netns exec {dev} ip -{ip} route show > temp/temp_krt_{dev}"
+    )  # save result into temp/
     content = read_write_routes(filename, mode="r").split("\n")
 
     for _ in mn_table_cont:

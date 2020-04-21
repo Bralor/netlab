@@ -40,8 +40,7 @@ def run(tdir, mod):
 
 def cleanup(tdir, mod):
     clean_dirs(mod)
-    os.system(f"./stop && sudo ./clean.sh")
-    os.remove("common/runtest_args.pckl")
+    os.system(f"sudo ./clean.sh")
 
 
 def clean_dirs(mod):

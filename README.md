@@ -1,5 +1,5 @@
 # Netlab
-Tool for designing the BIRD topology and its configuration.
+Tool for the testing of designed BIRD topology and its configuration.
 
 ## Installation
 ### 1. BIRD dependencies installation (distro: debian:latest):
@@ -51,7 +51,7 @@ Stopping the current running test case:
 ```
 
 ### 2. Runtest option
-A variant in which the integration tests will run (see [Test suits](#test-suit)). It is necessary to run with "-m" switch. This option has two modes.
+A variant in which the integration tests will run (see [Test suits](#test-suite)). It is necessary to run with "-m" switch. This flag has two options.
 
 #### 2.1 Save mode
 Save the kernel routing tables for selected scenario to :data: folder in the specified test case's folder.
@@ -115,16 +115,64 @@ These are predefined configuration files that represent possible situations with
       └─────┘
 ```
 #### Description
-- cf-ospf
-- cf-ospf-authentication
-- cf-ospf-base
-- cf-ospf-bfd
-- cf-ospf-custom
-- cf-ospf-default
-- cf-ospf-nbma
-- cf-ospf-net
-- cf-ospf-priority
-- cf-ospf-ptmp
+##### cf-ospf
+This is just legacy case. Supports only 4 devices. Topology is also different than the aformentioned. For further details see [cf-ospf-base](#cf-ospf-base).
+
+##### cf-ospf-authentication
+OSPFv2: plaintext (M1-M3) --> with mismatched passwords
+OSPFv3: HMAC-SHA-1 (M5-M7)
+OSPFv2: MD5 (M1-M2)
+OSPFv3: HMAC-SHA-256 (M7-M8)
+OSPFv2: HMAC-SHA-256 (M2-M4)
+OSPFv3: HMAC-SHA-512 (M6-M8) --> with mismatched passwords
+
+##### cf-ospf-base
+M3, M4, M5 and M6 are connected with multipoint network (if_net)
+M1-M4 --> type PtP
+M5-M8 --> type bcast
+
+##### cf-ospf-bfd
+This configuration has enabled the BFD support on all connections.
+
+##### cf-ospf-custom
+M1-M3; M5-M7 and multipoint --> ttl security
+M6-M8 --> set only on the one device
+M1-M2; M7-M8 --> real broadcast option (only OSPFv2)
+M1-M3; M2-M4 --> link LSA suppression (only OSPFv3)
+
+##### cf-ospf-default
+M1,M4,M6,M7 --> have not explicitly set type and interval
+M2,M3,M5,M8 --> have default values
+
+##### cf-ospf-nbma
+Like the base configuration, but central multipoint network is set as type nbma mode instead of bcast.
+
+##### cf-ospf-net
+in progress
+
+##### cf-ospf-priority
+Priorities are explicitly set on the central multipoint (M3-10; M5-1; M4-0 and M6-0)
+
+##### cf-ospf-ptmp
+Like the base configuration, but central multipoint network is set as type ptmp mode instead of bcast.
+
+#### cf-ospf-vrf
+This configuration has three different cycles with single common device named "M1".
+```
+M9────M8 M7────M6
+|      | |      |
+|      | |      |
+M10─────M1─────M5
+       /  \
+      /    \
+    M2      M4
+      \    /
+       \  /
+        M3
+```
+1. M1, M2, M3, M4: there is no VRF
+2. M1, M5, M6, M7: there is VRF on M1
+3. M1, M8, M9, M10: there is VRF on the all routers
 
 ### Variants for the BGP protocol
 #### Topology
@@ -169,16 +217,23 @@ These are predefined configuration files that represent possible situations with
 
 ##### cf-bgp-authentication
 Configuration settings with parameter "password":
-- M24-M31 --> Passwords are not matching on the eBGP4,
-- M32-M33 --> Passwords are not matching on the iBGP4,
-- M22-M21 --> Passwords are matching,
-- M41-M42 --> Passwords are matching,
+- M14-M21 --> Passwords do not match, eBGPv4("bird1421", "bird1421"),
+- M24-M31 --> Passwords match, eBGPv6("xxxx1234", "xxxx1234"),
+- M34-M41 --> Passwords match, eBGPv4("borg2345", "borg2345"),
+- M44-M11 --> Passwords do not match, eBGPv6("abcd1234", "abcd1234"),
 
-Configuration settings with parameter "ttl security":
-- M34-M41 --> both devices have ttl security turned on,
-- M44-M11 --> only one of them has ttl security turned on,
+Configuration settings with parameter "ttl security":  # not yet
+- M24-M31 --> both devices has ttl security parameter,
+- M34-M41 --> only one device has ttl security parameter,
 
 
-## Test suit
-It is a package with specific tests that verify the specific testing case. Each test case has a basic test package (:cases/cf-<test_case>/test-<test_case>.py:). These are basic tests verifying the routing table content. It also contains tests that are individual to each test case.
+## Test suite
+It is a package with specific tests that verify the specific testing case. Each test case has a basic test package (:cases/cf-<test_case>/test-<test_case>.py:).  It also contains tests that are individual to each test case.
 The test package :cases/cf-<test_case>/test-<test_case>.py: is only a starting file for the tool Pytest. The test function itself is in the file :/tests/kernel.py:. The patch always tests all defined devices.
+
+### Basic test suite
+This test suite is located in a specific test case. By default named _test-<test-case>.py_. Basic test suite has two parts. The first part runs only in [save mode](#21-save-mode). During this mode, routing tables are saved in the folder _data_ (:/cases/<test-case>/data:). The second part runs only in [check mode](#22-check-mode). The tables we have obtained in previous part are compared with current tables. After a while, when they are same, the test will pass. If they are different, the test will fail.
+
+### Specific test suite
+These tests belongs to the certain test cases. They are not common to all test cases.
+ 
