@@ -1,5 +1,5 @@
 10.1.0.0/16 via 10.4.10.2 dev ve1 proto bird metric 32 
-10.2.0.0/16 via 10.4.10.2 dev ve1 proto bird metric 32 
+10.2.0.0/16 via 10.3.13.1 dev ve2 proto bird metric 32 
 10.3.0.0/16 via 10.3.13.1 dev ve2 proto bird metric 32 
 10.3.13.0/24 dev ve2 proto kernel scope link src 10.3.13.2 
 10.3.13.0/24 dev ve2 proto bird scope link metric 32 
