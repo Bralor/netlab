@@ -13,7 +13,6 @@ sys.path.pop(0)
 LIMIT = 60
 EXPECTED_DEVICES = ("m1", "m2", "m3", "m4", "m5", "m6", "m7", "m8", "m9", "m10")
 
-
 with open("common/runtest_args.pckl", "rb") as args_file:
     testdir, mode = pickle.load(args_file)
 
@@ -25,5 +24,5 @@ def test_wait():
 
 
 @pytest.mark.parametrize("exp_devs", EXPECTED_DEVICES)
-def test_krt_tables(exp_devs):
+def test_krt_routes(exp_devs):
     tk.test_krt_routes(exp_devs, testdir, mode)
