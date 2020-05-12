@@ -7,7 +7,6 @@ import tests.config as cf
 
 
 def test_routing_tables(key: str, dev: str) -> None:
-    """Main checking scenario"""
     if cf.save:
         save_routes(key, dev)
     else:
@@ -15,8 +14,7 @@ def test_routing_tables(key: str, dev: str) -> None:
 
 
 def save_routes(key: str, dev: str) -> None:
-    """Saving of specific tables(krt/bird)"""
-    subprocess.call(["common/save_table", key, dev, cf.datadir])
+    subprocess.call(["tests/get_table", key, dev, cf.datadir, "save"])
 
 
 def check_routes_timeout(key: str, dev: str, timeout: int = 60) -> None:
@@ -30,8 +28,7 @@ def check_routes_timeout(key: str, dev: str, timeout: int = 60) -> None:
 
 
 def check_routes(key: str, dev: str) -> None:
-    """Check the content of saved/current table"""
-    subprocess.call(["common/check_table", key, dev, cf.datadir])
+    subprocess.call(["tests/get_table", key, dev, cf.datadir, "check"])
     saved_table = read_krt_routes(f"{cf.datadir}/{key}-{dev}")
     current_table = read_krt_routes(f"temp/{key}-{dev}")
 
