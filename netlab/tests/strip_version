@@ -1,0 +1,3 @@
+#!/bin/sh
+# remove version of Bird
+sed -Ei "s/BIRD\sv.* ready./BIRD <removed> ready./" $1

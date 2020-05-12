@@ -1,0 +1,3 @@
+#!/bin/sh
+# remove the timestamp from the output
+sed -Ei "s/unicast \[$1 .*:.*:..\....]/unicast [$1 <removed>]/" $2
