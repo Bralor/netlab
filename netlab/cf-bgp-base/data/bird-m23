@@ -1,0 +1,66 @@
+BIRD v2.0.7-41-g9f267027 ready.
+Table master4:
+10.3.0.0/16          unicast <removed> * (100/20) [AS3i]
+	via 10.2.12.2 on ve1
+10.2.11.0/24         unicast <removed> * I (150/10) [10.0.2.3]
+	dev ve2
+10.2.12.0/24         unicast <removed> * I (150/10) [10.0.2.3]
+	dev ve1
+10.4.0.0/16          unicast <removed> * (100/20) [AS4i]
+	via 10.2.12.2 on ve1
+                     unicast <removed> (100/30) [AS4i]
+	via 10.2.11.1 on ve2
+10.2.13.0/24         unicast <removed> * I (150/20) [10.0.2.4]
+	via 10.2.12.2 on ve1
+10.1.0.0/16          unicast <removed> * (100/30) [AS1i]
+	via 10.2.11.1 on ve2
+10.2.10.0/24         unicast <removed> * I (150/20) [10.0.2.2]
+	via 10.2.11.1 on ve2
+10.2.3.0/24          unicast <removed> * I (150/10) [10.0.2.3]
+	dev ve0
+10.2.4.0/24          unicast <removed> * I (150/20) [10.0.2.4]
+	via 10.2.12.2 on ve1
+10.2.0.0/16          unreachable <removed> * (200)
+                     unicast <removed> (100/30) [i]
+	via 10.2.11.1 on ve2
+                     unicast <removed> (100/20) [i]
+	via 10.2.12.2 on ve1
+10.2.1.0/24          unicast <removed> * I (150/30) [10.0.2.1]
+	via 10.2.11.1 on ve2
+10.2.2.0/24          unicast <removed> * I (150/20) [10.0.2.2]
+	via 10.2.11.1 on ve2
+10.1.13.0/24         unicast <removed> * I (150/30) [10.0.2.1]
+	via 10.2.11.1 on ve2
+
+Table master6:
+2001:db8:1::/48      unicast <removed> * (100/30) [AS1i]
+	via fe80::5840:dfff:fe38:3710 on ve2
+2001:db8:3::/48      unicast <removed> * (100/20) [AS3i]
+	via fe80::b03f:adff:fe4e:8567 on ve1
+2001:db8:2::/48      unreachable <removed> * (200)
+                     unicast <removed> (100/30) [i]
+	via fe80::5840:dfff:fe38:3710 on ve2
+                     unicast <removed> (100/20) [i]
+	via fe80::b03f:adff:fe4e:8567 on ve1
+2001:db8:4::/48      unicast <removed> * (100/20) [AS4i]
+	via fe80::b03f:adff:fe4e:8567 on ve1
+                     unicast <removed> (100/30) [AS4i]
+	via fe80::5840:dfff:fe38:3710 on ve2
+2001:db8:2:11::/64   unicast <removed> * I (150/10) [10.0.2.3]
+	dev ve2
+2001:db8:2:10::/64   unicast <removed> * I (150/20) [10.0.2.2]
+	via fe80::5840:dfff:fe38:3710 on ve2
+2001:db8:2:13::/64   unicast <removed> * I (150/20) [10.0.2.4]
+	via fe80::b03f:adff:fe4e:8567 on ve1
+2001:db8:1:13::/64   unicast <removed> * I (150/30) [10.0.2.1]
+	via fe80::5840:dfff:fe38:3710 on ve2
+2001:db8:2:12::/64   unicast <removed> * I (150/10) [10.0.2.3]
+	dev ve1
+2001:db8:2:4::/64    unicast <removed> * I (150/20) [10.0.2.4]
+	via fe80::b03f:adff:fe4e:8567 on ve1
+2001:db8:2:1::/64    unicast <removed> * I (150/30) [10.0.2.1]
+	via fe80::5840:dfff:fe38:3710 on ve2
+2001:db8:2:3::/64    unicast <removed> * I (150/10) [10.0.2.3]
+	dev ve0
+2001:db8:2:2::/64    unicast <removed> * I (150/20) [10.0.2.2]
+	via fe80::5840:dfff:fe38:3710 on ve2
