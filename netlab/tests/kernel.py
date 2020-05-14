@@ -14,7 +14,7 @@ def test_routing_tables(key: str, dev: str) -> None:
 
 
 def save_routes(key: str, dev: str) -> None:
-    subprocess.call(["tests/get_table", key, dev, cf.datadir, "save"])
+    os.system(f"tests/get_stdout_{key} '{dev}'> {cf.datadir}/{key}-{dev}")
 
 
 def check_routes_timeout(key: str, dev: str, timeout: int = 60) -> None:
@@ -28,7 +28,7 @@ def check_routes_timeout(key: str, dev: str, timeout: int = 60) -> None:
 
 
 def check_routes(key: str, dev: str) -> None:
-    subprocess.call(["tests/get_table", key, dev, cf.datadir, "check"])
+    os.system(f"tests/get_stdout_{key} '{dev}' > temp/{key}-{dev}")
     saved_table = read_krt_routes(f"{cf.datadir}/{key}-{dev}")
     current_table = read_krt_routes(f"temp/{key}-{dev}")
 
