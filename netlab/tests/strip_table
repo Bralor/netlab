@@ -1,0 +1,15 @@
+#!/bin/sh
+strip_version() {
+    # remove version of Bird
+    sed "s/^BIRD\sv.* ready.$/BIRD <removed> ready./" $1;
+}
+
+strip_addresses() {
+    # remove the cast link-local addresses
+    sed -E "s/fe80::[[:alnum:]+:[[:alnum:]]+:[[:alnum:]]+:[[:alnum:]]+/fe80::<removed>/";
+}
+strip_timestamp() {
+    # remove the timestamp from the output
+    sed -E "s/[0-9]{2}:[0-9]{2}:[0-9]{2}.[0-9]{3}]/<removed>]/";
+}
+
