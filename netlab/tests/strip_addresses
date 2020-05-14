@@ -1,3 +1,0 @@
-#!/bin/sh
-# remove the cast link-local addresses
-sed -Ei "s/via fe80::.*/via fe80::<removed>/" $1
