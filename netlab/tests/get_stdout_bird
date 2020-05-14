@@ -1,0 +1,3 @@
+#!/bin/sh
+. tests/strip_table
+cd $1 && ./birdc -l show route | strip_version | strip_addresses | strip_timestamp

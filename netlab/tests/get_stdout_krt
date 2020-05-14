@@ -1,0 +1,2 @@
+#!/bin/sh
+ip netns exec "$1" ip -4 route show
