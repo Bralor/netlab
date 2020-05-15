@@ -1,2 +1,4 @@
 #!/bin/sh
-ip netns exec "$1" ip -4 route show
+. tests/strip_table
+ip netns exec "$1" ip -4 route show \
+    | strip_interfaces 
