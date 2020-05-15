@@ -13,14 +13,14 @@
 10.2.1.0/24 dev ve0 proto kernel scope link src 10.2.1.1 
 10.2.1.0/24 dev ve0 proto bird scope link metric 32 
 10.3.1.0/24 proto bird metric 32 
-	nexthop via 10.0.2.1 dev ve2 weight 1 
-	nexthop via 10.0.3.2 dev ve1 weight 1 
+	nexthop via 10.0.2.1 dev <removed> weight 1 
+	nexthop via 10.0.3.2 dev <removed> weight 1 
 10.3.20.0/24 proto bird metric 32 
-	nexthop via 10.0.2.1 dev ve2 weight 1 
-	nexthop via 10.0.3.2 dev ve1 weight 1 
+	nexthop via 10.0.2.1 dev <removed> weight 1 
+	nexthop via 10.0.3.2 dev <removed> weight 1 
 10.3.21.0/24 proto bird metric 32 
-	nexthop via 10.0.2.1 dev ve2 weight 1 
-	nexthop via 10.0.3.2 dev ve1 weight 1 
+	nexthop via 10.0.2.1 dev <removed> weight 1 
+	nexthop via 10.0.3.2 dev <removed> weight 1 
 10.4.1.0/24 via 10.0.3.2 dev ve1 proto bird metric 32 
 10.4.20.0/24 via 10.0.3.2 dev ve1 proto bird metric 32 
 10.4.21.0/24 via 10.0.3.2 dev ve1 proto bird metric 32 
