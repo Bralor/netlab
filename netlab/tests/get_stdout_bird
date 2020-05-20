@@ -3,5 +3,5 @@
 cd $1 && ./birdc -l show route \
     | strip_version \
     | strip_timestamp \
-    | strip_addresses_dev \
-    | strip_addresses_on
+    | strip_addresses \
+    | strip_interfaces_on

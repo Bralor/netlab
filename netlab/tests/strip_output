@@ -8,17 +8,17 @@ strip_timestamp() {
     sed -E "s/[0-9]{2}:[0-9]{2}:[0-9]{2}.[0-9]{3}]/<removed>]/";
 }
 
-strip_addresses_dev() {
+strip_addresses() {
     # remove the cast link-local addresses
     sed -E "s/([^[:alnum:]]fe80::)[[:alnum:]:]*( [[:alnum:]]*)/\1<removed>\2/"
 }
 
-strip_addresses_on() {
+strip_interfaces_on() {
     # remove the cast link-local addresses
-    sed -E "s/[^[:alnum:]](fe80::<removed> on) [[:alnum:]]*/ \1 <removed>/"
+    sed -E "s/(fe80::<removed> on) [[:alnum:]]*/\1 <removed>/"
 }
 
-strip_interfaces() {
+strip_interfaces_dev() {
     # remove the name of interfaces
-    sed -E "s/(nexthop .* dev)\s[[:alnum:]]* (.*)/\1 <removed> \2/"
+    sed -E "s/(nexthop via fe80::.* dev) [[:alnum:]]* /\1 <removed> /"
 }
