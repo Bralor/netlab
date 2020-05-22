@@ -13,9 +13,11 @@ def test_wait():
 
 @pytest.mark.parametrize("exp_devs", EXPECTED_DEVICES)
 def test_krt_routes(exp_devs):
+    """Get the content of KERNEL tables and check it"""
     tk.test_routing_tables("krt", exp_devs)
 
 
 @pytest.mark.parametrize("exp_devs", EXPECTED_DEVICES)
 def test_bird_routes(exp_devs):
+    """Get the content of BIRD tables and check it"""
     tk.test_routing_tables("bird", exp_devs)
