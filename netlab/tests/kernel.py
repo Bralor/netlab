@@ -6,18 +6,18 @@ import subprocess
 import tests.config as cf
 
 
-def test_krt_tables(key: str, dev: str) -> None:
+def test_krt_routes(key: str, dev: str) -> None:
     if cf.save:
         save_krt_routes(key, dev)
     else:
-        check_krt_timeout(key, dev)
+        check_krt_routes_timeout(key, dev)
 
 
 def save_krt_routes(key: str, dev: str, loc: str = cf.datadir) -> None:
     os.system(f"tests/get_stdout_{key} '{dev}' 'table main' > {loc}/{key}-{dev}")
 
 
-def check_krt_timeout(key: str, dev: str) -> None:
+def check_krt_routes_timeout(key: str, dev: str) -> None:
     timeout = 60
     for sec in range(timeout):
         if check_krt_routes(key, dev, "temp"):
@@ -31,24 +31,24 @@ def check_krt_timeout(key: str, dev: str) -> None:
 def check_krt_routes(key: str, dev: str, loc: str = cf.datadir) -> None:
     save_krt_routes(key, dev, "temp")
     saved_table = read_krt_routes(f"{loc}/{key}-{dev}")
-    current_table = read_krt_routes(f"{loc}/{key}-{dev}")
+    current_table = read_krt_routes(f"temp/{key}-{dev}")
 
     for _ in current_table:
         return saved_table == current_table
 
 
-def test_bird_tables(key: str, dev: str) -> None:
+def test_bird_routes(key: str, dev: str) -> None:
     if cf.save:
         save_bird_routes(key, dev)
     else:
-        check_bird_timeout(key, dev)
+        check_timeout_bird_routes(key, dev)
 
 
 def save_bird_routes(key: str, dev: str, loc: str = cf.datadir) -> None:
     os.system(f"tests/get_stdout_{key} '{dev}' 'table master4' > {loc}/{key}-{dev}")
 
 
-def check_bird_timeout(key: str, dev: str) -> None:
+def check_timeout_bird_routes(key: str, dev: str) -> None:
     timeout = 60
     for sec in range(timeout):
         if check_bird_routes(key, dev, "temp"):
