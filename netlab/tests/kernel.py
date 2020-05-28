@@ -14,7 +14,7 @@ def test_krt_routes(key: str, dev: str) -> None:
 
 
 def save_krt_routes(key: str, dev: str, loc: str = cf.datadir) -> None:
-    os.system(f"tests/get_stdout_{key} '{dev}' 'table main' > {loc}/{key}-{dev}")
+    os.system(f"tests/get_stdout_krt '{dev}' 'table main' > {loc}/{key}-{dev}")
 
 
 def check_krt_routes_timeout(key: str, dev: str) -> None:
@@ -30,8 +30,8 @@ def check_krt_routes_timeout(key: str, dev: str) -> None:
 
 def check_krt_routes(key: str, dev: str, loc: str = cf.datadir) -> None:
     save_krt_routes(key, dev, "temp")
-    saved_table = read_krt_routes(f"{loc}/{key}-{dev}")
-    current_table = read_krt_routes(f"temp/{key}-{dev}")
+    saved_table = read_file(f"{cf.datadir}/{key}-{dev}")
+    current_table = read_file(f"{loc}/{key}-{dev}")
 
     for _ in current_table:
         return saved_table == current_table
@@ -45,7 +45,7 @@ def test_bird_routes(key: str, dev: str) -> None:
 
 
 def save_bird_routes(key: str, dev: str, loc: str = cf.datadir) -> None:
-    os.system(f"tests/get_stdout_{key} '{dev}' 'table master4' > {loc}/{key}-{dev}")
+    os.system(f"tests/get_stdout_bird '{dev}' 'table master4' > {loc}/{key}-{dev}")
 
 
 def check_timeout_bird_routes(key: str, dev: str) -> None:
@@ -61,23 +61,23 @@ def check_timeout_bird_routes(key: str, dev: str) -> None:
 
 def check_bird_routes(key: str, dev: str, loc: str = cf.datadir) -> None:
     save_bird_routes(key, dev, "temp")
-    saved_table = read_krt_routes(f"{loc}/{key}-{dev}")
-    current_table = read_krt_routes(f"{loc}/{key}-{dev}")
+    saved_table = read_file(f"{loc}/{key}-{dev}")
+    current_table = read_file(f"{loc}/{key}-{dev}")
 
     for _ in current_table:
         return saved_table == current_table
 
 
-def wait(sec):
+def wait(sec: int):
     time.sleep(sec)
 
 
-def write_krt_routes(name, content):
+def write_krt_routes(name: str, content: str) -> None:
     with open(name, "w") as txt:
         txt.write(content)
 
 
-def read_krt_routes(name):
+def read_file(name: str) -> None:
     with open(name, "r") as txt:
         return txt.read().split("\n")
 
