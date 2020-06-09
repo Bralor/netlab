@@ -1,6 +1,6 @@
 #!/bin/sh
 . tests/strip_output
-cd $1 && ./birdc -l show route $@ \
+cd $1 && ./birdc -l show route table $2 \
     | strip_version \
     | strip_timestamp \
     | strip_addresses \

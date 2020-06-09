@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/home/mholinka/projects/netlab_test/env/bin/python
 
 import os
 import sys
