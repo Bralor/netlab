@@ -55,7 +55,7 @@ def save_bird_routes(key: str, dev: str, table: str, loc: str = "temp") -> None:
     os.system(
         f"""\
         ./tests/get_stdout_bird '{dev}' \
-        {table} > {loc}/{table}-{dev}
+        {table} > {loc}/{key}-{dev}
         """
     )
 
@@ -73,8 +73,8 @@ def check_bird_routes_timeout(key: str, dev: str, table: str) -> None:
 
 def check_bird_routes(key: str, dev: str, table: str) -> None:
     save_bird_routes(key, dev, table)
-    current_table = read_file(f"temp/{table}-{dev}")
-    saved_table = read_file(f"{cf.datadir}/{table}-{dev}")
+    current_table = read_file(f"temp/{key}-{dev}")
+    saved_table = read_file(f"{cf.datadir}/{key}-{dev}")
 
     for _ in current_table:
         return saved_table == current_table
