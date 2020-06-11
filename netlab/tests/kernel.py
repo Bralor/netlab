@@ -13,12 +13,14 @@ def test_krt_routes(key: str, dev: str, ip: str) -> None:
         check_krt_routes_timeout(key, dev, ip)
 
 
-def save_krt_routes(key: str, dev: str, ip: str, loc: str = "temp") -> None:
+def save_krt_routes(
+    key: str, dev: str, ip: str, loc: str = "temp", table: str = "main"
+) -> None:
     os.system(
         f"""\
         ip netns exec {dev} \
         ./tests/get_stdout_krt '{ip}'\
-        'table main' > \
+        'table {table}' > \
         {loc}/{key}-{dev}
         """
     )
