@@ -29,10 +29,10 @@ def test_krt_routes_ipv6(exp_devs: str):
 @pytest.mark.parametrize("exp_devs", EXPECTED_DEVICES)
 def test_bird_routes_ipv4(exp_devs: str):
     """IPv4: get the content of BIRD tables and check it"""
-    tk.test_bird_routes("bird", exp_devs, "master4")
+    tk.test_bird_routes("master4", exp_devs, "master4")
 
 
 @pytest.mark.parametrize("exp_devs", EXPECTED_DEVICES)
 def test_bird_routes_ipv6(exp_devs: str):
     """IPv6: get the content of BIRD tables and check it"""
-    tk.test_bird_routes("bird", exp_devs, "master6")
+    tk.test_bird_routes("master6", exp_devs, "master6")
