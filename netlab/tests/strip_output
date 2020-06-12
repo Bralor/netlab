@@ -5,7 +5,7 @@ strip_version() {
 
 strip_timestamp() {
     # remove the timestamp from the output
-    sed -E "s/[0-9]{2}:[0-9]{2}:[0-9]{2}.[0-9]{3}]/<removed>]/";
+    sed -E "s/[0-9]{2}:[0-9]{2}:[0-9]{2}.[0-9]{3}/<removed>/";
 }
 
 strip_addresses() {
