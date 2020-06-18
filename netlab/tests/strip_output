@@ -5,7 +5,7 @@ strip_version() {
 
 strip_timestamp() {
     # remove the timestamp from the output
-    sed -E "s/[0-9]{2}:[0-9]{2}:[0-9]{2}.[0-9]{3}]/<removed>]/";
+    sed -E "s/[0-9]{2}:[0-9]{2}:[0-9]{2}.[0-9]{3}/<removed>/";
 }
 
 strip_addresses() {
@@ -14,11 +14,21 @@ strip_addresses() {
 }
 
 strip_interfaces_on() {
-    # remove the cast link-local addresses
-    sed -E "s/(fe80::<removed> on) [[:alnum:]]*/\1 <removed>/"
+    # remove the name of interfaces for link-local nexthops, after 'on'
+    sed -E "s/(fe80::<removed> on) [[:alnum:]]* weight/\1 <removed> weight/"
 }
 
-strip_interfaces_dev() {
-    # remove the name of interfaces
-    sed -E "s/(nexthop via fe80::.* dev) [[:alnum:]]* /\1 <removed> /"
+strip_interfaces_via() {
+    # remove the name of interfaces for link-local nexthops, after 'via'
+    sed -E "s/(nexthop via fe80::.* dev) [[:alnum:]]*/\1 <removed>/"
+}
+
+strip_nexthop_pref() {
+    # remove 'pref' value for ECMP nexthops reported in some version of ip/kernel
+    sed -E "s/(nexthop via .*) pref [[:alnum:]]*/\1 /"
+}
+
+strip_link_local_routes() {
+    # remove 'local' kernel routes for link-local networks (for local or vrf tables)
+    egrep -v '^(anycast|local) fe80|^fe80::/64|^ff00::/8'
 }

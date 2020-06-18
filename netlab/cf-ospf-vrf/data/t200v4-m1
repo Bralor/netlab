@@ -1,0 +1,41 @@
+BIRD <removed> ready.
+Table t200v4:
+10.30.1.0/24         unicast [ospf2v4 <removed>] * E2 (150/30/10000) [10.0.2.3]
+	via 10.2.5.2 on ve3 weight 1
+	via 10.2.8.1 on ve4 weight 1
+10.30.0.0/24         unicast [ospf2v4 <removed>] * E2 (150/30/10000) [10.0.2.3]
+	via 10.2.5.2 on ve3 weight 1
+	via 10.2.8.1 on ve4 weight 1
+10.2.7.0/24          unicast [ospf2v4 <removed>] * I (150/20) [10.0.2.4]
+	via 10.2.8.1 on ve4
+10.2.8.0/24          unicast [ospf2v4 <removed>] * I (150/10) [10.0.1.1]
+	dev ve4
+10.20.0.0/24         unicast [ospf2v4 <removed>] * E2 (150/20/10000) [10.0.2.2]
+	via 10.2.5.2 on ve3
+10.20.1.0/24         unicast [ospf2v4 <removed>] * E2 (150/20/10000) [10.0.2.2]
+	via 10.2.5.2 on ve3
+10.2.3.0/24          unicast [ospf2v4 <removed>] * I (150/30) [10.0.2.3]
+	via 10.2.5.2 on ve3 weight 1
+	via 10.2.8.1 on ve4 weight 1
+10.50.1.0/24         unicast [ospf2v4 <removed>] * E2 (150/20/10000) [10.0.2.4]
+	via 10.2.8.1 on ve4
+10.2.4.0/24          unicast [ospf2v4 <removed>] * I (150/20) [10.0.2.4]
+	via 10.2.8.1 on ve4
+10.2.5.0/24          unicast [ospf2v4 <removed>] * I (150/10) [10.0.1.1]
+	dev ve3
+10.2.6.0/24          unicast [ospf2v4 <removed>] * I (150/20) [10.0.2.2]
+	via 10.2.5.2 on ve3
+10.10.0.0/24         unicast [static2v4 <removed>] * (200)
+	via 10.2.1.2 on vf1
+10.2.1.0/24          unicast [ospf2v4 <removed>] * I (150/10) [10.0.1.1]
+	dev vf1
+10.10.1.0/24         unicast [static2v4 <removed>] * (200)
+	via 10.2.1.2 on vf1
+10.2.2.0/24          unicast [ospf2v4 <removed>] * I (150/20) [10.0.2.2]
+	via 10.2.5.2 on ve3
+10.50.0.0/24         unicast [ospf2v4 <removed>] * E2 (150/20/10000) [10.0.2.4]
+	via 10.2.8.1 on ve4
+10.40.1.0/24         unicast [ospf2v4 <removed>] * E2 (150/20/10000) [10.0.2.4]
+	via 10.2.8.1 on ve4
+10.40.0.0/24         unicast [ospf2v4 <removed>] * E2 (150/20/10000) [10.0.2.4]
+	via 10.2.8.1 on ve4

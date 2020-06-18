@@ -1,0 +1,27 @@
+BIRD <removed> ready.
+Table master4:
+10.3.1.0/24          unicast [ospf4 <removed>] * I (150/40) [10.0.3.1]
+	via 10.3.12.1 on ve2
+10.3.2.0/24          unicast [ospf4 <removed>] * I (150/30) [10.0.3.2]
+	via 10.3.12.1 on ve2
+10.3.0.0/16          unreachable [static4 <removed>] * (200)
+10.4.0.0/16          unicast [ebgp4 <removed>] * (100) [AS4i]
+	via 10.3.13.2 on ve1
+10.2.13.0/24         unicast [ospf4 <removed>] * I (150/40) [10.0.3.1]
+	via 10.3.12.1 on ve2
+10.1.0.0/16          unicast [ebgp4 <removed>] * (100) [AS1i]
+	via 10.3.13.2 on ve1
+10.2.0.0/16          unicast [ibgp4_1 <removed> from 10.3.1.1] * (100/40) [AS2i]
+	via 10.3.12.1 on ve2
+10.3.11.0/24         unicast [ospf4 <removed>] * I (150/20) [10.0.3.3]
+	via 10.3.12.1 on ve2
+10.3.12.0/24         unicast [ospf4 <removed>] * I (150/10) [10.0.3.4]
+	dev ve2
+10.3.13.0/24         unicast [ospf4 <removed>] * I (150/10) [10.0.3.4]
+	dev ve1
+10.3.10.0/24         unicast [ospf4 <removed>] * I (150/30) [10.0.3.2]
+	via 10.3.12.1 on ve2
+10.3.3.0/24          unicast [ospf4 <removed>] * I (150/20) [10.0.3.3]
+	via 10.3.12.1 on ve2
+10.3.4.0/24          unicast [ospf4 <removed>] * I (150/10) [10.0.3.4]
+	dev ve0

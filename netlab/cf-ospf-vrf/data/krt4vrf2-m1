@@ -1,0 +1,36 @@
+broadcast 10.2.1.0 dev vf1 proto kernel scope link src 10.2.1.1 
+10.2.1.0/24 dev vf1 proto kernel scope link src 10.2.1.1 
+10.2.1.0/24 dev vf1 proto bird scope link metric 32 
+local 10.2.1.1 dev vf1 proto kernel scope host src 10.2.1.1 
+broadcast 10.2.1.255 dev vf1 proto kernel scope link src 10.2.1.1 
+10.2.2.0/24 via 10.2.5.2 dev ve3 proto bird metric 32 
+10.2.3.0/24 proto bird metric 32 
+	nexthop via 10.2.5.2 dev ve3 weight 1 
+	nexthop via 10.2.8.1 dev ve4 weight 1 
+10.2.4.0/24 via 10.2.8.1 dev ve4 proto bird metric 32 
+broadcast 10.2.5.0 dev ve3 proto kernel scope link src 10.2.5.1 
+10.2.5.0/24 dev ve3 proto kernel scope link src 10.2.5.1 
+10.2.5.0/24 dev ve3 proto bird scope link metric 32 
+local 10.2.5.1 dev ve3 proto kernel scope host src 10.2.5.1 
+broadcast 10.2.5.255 dev ve3 proto kernel scope link src 10.2.5.1 
+10.2.6.0/24 via 10.2.5.2 dev ve3 proto bird metric 32 
+10.2.7.0/24 via 10.2.8.1 dev ve4 proto bird metric 32 
+broadcast 10.2.8.0 dev ve4 proto kernel scope link src 10.2.8.2 
+10.2.8.0/24 dev ve4 proto kernel scope link src 10.2.8.2 
+10.2.8.0/24 dev ve4 proto bird scope link metric 32 
+local 10.2.8.2 dev ve4 proto kernel scope host src 10.2.8.2 
+broadcast 10.2.8.255 dev ve4 proto kernel scope link src 10.2.8.2 
+10.10.0.0/24 via 10.2.1.2 dev vf1 proto bird metric 32 
+10.10.1.0/24 via 10.2.1.2 dev vf1 proto bird metric 32 
+10.20.0.0/24 via 10.2.5.2 dev ve3 proto bird metric 32 
+10.20.1.0/24 via 10.2.5.2 dev ve3 proto bird metric 32 
+10.30.0.0/24 proto bird metric 32 
+	nexthop via 10.2.5.2 dev ve3 weight 1 
+	nexthop via 10.2.8.1 dev ve4 weight 1 
+10.30.1.0/24 proto bird metric 32 
+	nexthop via 10.2.5.2 dev ve3 weight 1 
+	nexthop via 10.2.8.1 dev ve4 weight 1 
+10.40.0.0/24 via 10.2.8.1 dev ve4 proto bird metric 32 
+10.40.1.0/24 via 10.2.8.1 dev ve4 proto bird metric 32 
+10.50.0.0/24 via 10.2.8.1 dev ve4 proto bird metric 32 
+10.50.1.0/24 via 10.2.8.1 dev ve4 proto bird metric 32 
