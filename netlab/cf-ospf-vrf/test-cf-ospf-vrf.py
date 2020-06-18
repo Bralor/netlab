@@ -18,8 +18,10 @@ def test_krt_routes_ipv4(exp_devs: str):
     """IPv4: get the content of KERNEL tables and check it"""
     tk.test_krt_routes("krt4", exp_devs, "IPv4")
 
+
 def test_krt_routes_ipv4_vrf2():
     tk.test_krt_routes("krt4vrf2", "m1", "IPv4", "200")
+
 
 def test_krt_routes_ipv4_vrf3():
     tk.test_krt_routes("krt4vrf3", "m1", "IPv4", "300")
@@ -30,8 +32,10 @@ def test_krt_routes_ipv6(exp_devs: str):
     """IPv6: get the content of KERNEL tables and check it"""
     tk.test_krt_routes("krt6", exp_devs, "IPv6")
 
+
 def test_krt_routes_ipv6_vrf2():
     tk.test_krt_routes("krt6vrf2", "m1", "IPv6", "200")
+
 
 def test_krt_routes_ipv6_vrf3():
     tk.test_krt_routes("krt6vrf3", "m1", "IPv6", "300")
@@ -42,6 +46,7 @@ def test_bird_routes_ipv4(exp_devs: str):
     """IPv4: get the content of BIRD tables and check it"""
     tk.test_bird_routes("master4", exp_devs, "master4")
 
+
 @pytest.mark.parametrize("tab", ("t100v4", "t200v4", "t300v4"))
 def test_bird_routes_ipv4_vrfs(tab: str):
     tk.test_bird_routes(tab, "m1", tab)
@@ -51,6 +56,7 @@ def test_bird_routes_ipv4_vrfs(tab: str):
 def test_bird_routes_ipv6(exp_devs: str):
     """IPv6: get the content of BIRD tables and check it"""
     tk.test_bird_routes("master6", exp_devs, "master6")
+
 
 @pytest.mark.parametrize("tab", ("t100v6", "t200v6", "t300v6"))
 def test_bird_routes_ipv6_vrfs(tab: str):

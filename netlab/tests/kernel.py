@@ -13,12 +13,16 @@ def test_krt_routes(key: str, dev: str, family: str, table: str = "main") -> Non
         check_krt_routes_timeout(key, dev, family, table)
 
 
-def save_krt_routes(key: str, dev: str, family: str, table: str, loc: str = cf.datadir) -> None:
-    os.system(f""" \
+def save_krt_routes(
+    key: str, dev: str, family: str, table: str, loc: str = cf.datadir
+) -> None:
+    os.system(
+        f""" \
         ip netns exec {dev} \
         ./tests/get_stdout_krt '{family}' 'table {table}' \
         > {loc}/{key}-{dev} \
-        """)
+        """
+    )
 
 
 def check_krt_routes_timeout(key: str, dev: str, family: str, table: str) -> None:
@@ -45,11 +49,15 @@ def test_bird_routes(key: str, dev: str, table: str, opts: str = "") -> None:
         check_bird_routes_timeout(key, dev, table, opts)
 
 
-def save_bird_routes(key: str, dev: str, table: str, opts: str, loc: str = cf.datadir) -> None:
-    os.system(f""" \
+def save_bird_routes(
+    key: str, dev: str, table: str, opts: str, loc: str = cf.datadir
+) -> None:
+    os.system(
+        f""" \
         ./tests/get_stdout_bird '{dev}' 'table {table}' '{opts}' \
         > {loc}/{key}-{dev} \
-        """)
+        """
+    )
 
 
 def check_bird_routes_timeout(key: str, dev: str, table: str, opts: str) -> None:
