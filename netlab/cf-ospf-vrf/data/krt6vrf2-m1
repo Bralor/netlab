@@ -1,0 +1,17 @@
+anycast 2001:db8:2:1:: dev vf1 proto kernel metric 0 pref medium
+local 2001:db8:2:1::1 dev vf1 proto kernel metric 0 pref medium
+2001:db8:2:1::/64 dev vf1 proto bird metric 32 pref medium
+2001:db8:2:1::/64 dev vf1 proto kernel metric 256 pref medium
+2001:db8:2:2::/64 via fe80::<removed> dev ve3 proto bird metric 32 pref medium
+2001:db8:2:3::/64 proto bird metric 32 
+	nexthop via fe80::<removed> dev <removed> weight 1 
+	nexthop via fe80::<removed> dev <removed> weight 1 
+2001:db8:2:4::/64 via fe80::<removed> dev ve4 proto bird metric 32 pref medium
+2001:db8:10:10::/64 via 2001:db8:2:1::10 dev vf1 proto bird metric 32 pref medium
+2001:db8:20:10::/64 via fe80::<removed> dev ve3 proto bird metric 32 pref medium
+2001:db8:30:10::/64 proto bird metric 32 
+	nexthop via fe80::<removed> dev <removed> weight 1 
+	nexthop via fe80::<removed> dev <removed> weight 1 
+2001:db8:40:10::/64 via fe80::<removed> dev ve4 proto bird metric 32 pref medium
+2001:db8:50:1::/64 via fe80::<removed> dev ve4 proto bird metric 32 pref medium
+2001:db8:50:2::/64 via fe80::<removed> dev ve4 proto bird metric 32 pref medium

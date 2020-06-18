@@ -6,78 +6,67 @@ import subprocess
 import tests.config as cf
 
 
-def test_krt_routes(key: str, dev: str, ip: str) -> None:
+def test_krt_routes(key: str, dev: str, family: str, table: str = "main") -> None:
     if cf.save:
-        save_krt_routes(key, dev, ip, cf.datadir)
+        save_krt_routes(key, dev, family, table)
     else:
-        check_krt_routes_timeout(key, dev, ip)
+        check_krt_routes_timeout(key, dev, family, table)
 
 
-def save_krt_routes(key: str, dev: str, ip: str, loc: str = "temp") -> None:
-    os.system(
-        f"""\
+def save_krt_routes(key: str, dev: str, family: str, table: str, loc: str = cf.datadir) -> None:
+    os.system(f""" \
         ip netns exec {dev} \
-        ./tests/get_stdout_krt '{ip}'\
-        'table main' > \
-        {loc}/{key}-{dev}
-        """
-    )
+        ./tests/get_stdout_krt '{family}' 'table {table}' \
+        > {loc}/{key}-{dev} \
+        """)
 
 
-def check_krt_routes_timeout(key: str, dev: str, ip: str) -> None:
+def check_krt_routes_timeout(key: str, dev: str, family: str, table: str) -> None:
     timeout = 60
     for sec in range(timeout):
-        if check_krt_routes(key, dev, ip):
-            assert 1
-        elif sec == timeout - 1:
-            assert 0
+        if check_krt_routes(key, dev, family, table):
+            return
         else:
             time.sleep(1)
+    assert 0
 
 
-def check_krt_routes(key: str, dev: str, ip: str) -> None:
-    save_krt_routes(key, dev, ip)
-    current_table = read_file(f"temp/{key}-{dev}")
+def check_krt_routes(key: str, dev: str, family: str, table: str) -> None:
+    save_krt_routes(key, dev, family, table, cf.tempdir)
+    current_table = read_file(f"{cf.tempdir}/{key}-{dev}")
     saved_table = read_file(f"{cf.datadir}/{key}-{dev}")
-
-    for _ in current_table:
-        return saved_table == current_table
+    return saved_table == current_table
 
 
-def test_bird_routes(key: str, dev: str, table: str) -> None:
+def test_bird_routes(key: str, dev: str, table: str, opts: str = "") -> None:
     if cf.save:
-        save_bird_routes(key, dev, table, cf.datadir)
+        save_bird_routes(key, dev, table, opts)
     else:
-        check_bird_routes_timeout(key, dev, table)
+        check_bird_routes_timeout(key, dev, table, opts)
 
 
-def save_bird_routes(key: str, dev: str, table: str, loc: str = "temp") -> None:
-    os.system(
-        f"""\
-        ./tests/get_stdout_bird '{dev}' \
-        {table} > {loc}/{table}-{dev}
-        """
-    )
+def save_bird_routes(key: str, dev: str, table: str, opts: str, loc: str = cf.datadir) -> None:
+    os.system(f""" \
+        ./tests/get_stdout_bird '{dev}' 'table {table}' '{opts}' \
+        > {loc}/{key}-{dev} \
+        """)
 
 
-def check_bird_routes_timeout(key: str, dev: str, table: str) -> None:
+def check_bird_routes_timeout(key: str, dev: str, table: str, opts: str) -> None:
     timeout = 60
     for sec in range(timeout):
-        if check_bird_routes(key, dev, table):
-            assert 1
-        elif sec == timeout - 1:
-            assert 0
+        if check_bird_routes(key, dev, table, opts):
+            return
         else:
             time.sleep(1)
+    assert 0
 
 
-def check_bird_routes(key: str, dev: str, table: str) -> None:
-    save_bird_routes(key, dev, table)
-    current_table = read_file(f"temp/{table}-{dev}")
-    saved_table = read_file(f"{cf.datadir}/{table}-{dev}")
-
-    for _ in current_table:
-        return saved_table == current_table
+def check_bird_routes(key: str, dev: str, table: str, opts: str) -> None:
+    save_bird_routes(key, dev, table, opts, cf.tempdir)
+    current_table = read_file(f"{cf.tempdir}/{key}-{dev}")
+    saved_table = read_file(f"{cf.datadir}/{key}-{dev}")
+    return saved_table == current_table
 
 
 def wait(sec: int):

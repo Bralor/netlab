@@ -5,5 +5,7 @@ if [ $1 = "IPv4" ]; then variant=4; fi
 if [ $1 = "IPv6" ]; then variant=6; fi
 
 ip "-$variant" route show $2 \
-    | strip_interfaces_dev \
-    | strip_addresses
+    | strip_addresses \
+    | strip_interfaces_via \
+    | strip_nexthop_pref \
+    | strip_link_local_routes

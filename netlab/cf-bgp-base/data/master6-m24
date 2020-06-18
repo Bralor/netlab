@@ -1,0 +1,27 @@
+BIRD <removed> ready.
+Table master6:
+2001:db8:1::/48      unicast [ibgp6_3 <removed> from 2001:db8:2:1::1] * (100/40) [AS1i]
+	via fe80::<removed> on ve2
+2001:db8:3::/48      unicast [ebgp6 <removed>] * (100) [AS3i]
+	via 2001:db8:2:13::2 on ve1
+2001:db8:2::/48      unreachable [static6 <removed>] * (200)
+2001:db8:4::/48      unicast [ebgp6 <removed>] * (100) [AS4i]
+	via 2001:db8:2:13::2 on ve1
+2001:db8:2:11::/64   unicast [ospf6 <removed>] * I (150/20) [10.0.2.3]
+	via fe80::<removed> on ve2
+2001:db8:2:10::/64   unicast [ospf6 <removed>] * I (150/30) [10.0.2.2]
+	via fe80::<removed> on ve2
+2001:db8:2:13::/64   unicast [ospf6 <removed>] * I (150/10) [10.0.2.4]
+	dev ve1
+2001:db8:1:13::/64   unicast [ospf6 <removed>] * I (150/40) [10.0.2.1]
+	via fe80::<removed> on ve2
+2001:db8:2:12::/64   unicast [ospf6 <removed>] * I (150/10) [10.0.2.4]
+	dev ve2
+2001:db8:2:4::/64    unicast [ospf6 <removed>] * I (150/10) [10.0.2.4]
+	dev ve0
+2001:db8:2:1::/64    unicast [ospf6 <removed>] * I (150/40) [10.0.2.1]
+	via fe80::<removed> on ve2
+2001:db8:2:3::/64    unicast [ospf6 <removed>] * I (150/20) [10.0.2.3]
+	via fe80::<removed> on ve2
+2001:db8:2:2::/64    unicast [ospf6 <removed>] * I (150/30) [10.0.2.2]
+	via fe80::<removed> on ve2
