@@ -56,6 +56,7 @@ def save_bird_routes(
         f""" \
         ./tests/get_stdout_bird '{dev}' 'table {table}' '{opts}' \
         > {loc}/{key}-{dev} \
+        && ./tests/sort_secondary_routes '{loc}/{key}-{dev}'
         """
     )
 
