@@ -1,0 +1,94 @@
+#!/home/mholinka/projects/netlab_test/env/bin/python
+
+import sys
+from typing import List
+from pprint import pprint
+
+
+def main():
+    unsorted_table = load_clean_content(file_name)
+    secondary = []
+
+    for index, line in enumerate(unsorted_table):
+        if select_secondary_route(line):
+            secondary.append(unsorted_table[index] + unsorted_table[index + 1])
+
+    sorted_table = replace_unsorted_route(unsorted_table, sorted(secondary))
+    write_table_as_txt(sorted_table)
+
+
+def load_clean_content(file) -> List[str]:
+    """
+    Incorrect filename:
+    >>> load_clean_content("unexisting_sample.txt")
+    Traceback (most recent call last):
+    ...
+    FileNotFoundError: [Errno 2] No such file or directory: 'unexisting_sample.txt'
+    """
+    with open(file, "r") as txt:
+        return txt.read().strip().split("\n")
+
+
+def select_secondary_route(line: str) -> str:
+    """
+    Incorrect route:
+    >>> line = 'unicast [ibgp4_3 <removed> from 10.1.4.1] (100/40) [AS3i]'
+    >>> bool(select_secondary_route(line))
+    False
+    """
+    if "unicast" in line and "[i]" in line and "*" not in line:
+        return line
+
+
+def replace_unsorted_route(unsorted: List[str], sort: List[str]) -> List[str]:
+    """
+    >>> from pprint import pprint
+    >>> unsorted_sample = [
+    ...     '10.1.2.0/24          unicast [ospf4 <removed>] * I (150/20) [10.0.1.2]',
+    ...     '\\tvia 10.1.10.2 on ve1',
+    ...     '10.1.0.0/16          unreachable [static4 <removed>] * (200)',
+    ...     '                     unicast [ibgp4_2 <removed> from 10.1.3.1] (100/30) [i]',
+    ...     '\\tvia 10.1.10.2 on ve1',
+    ...     '                     unicast [ibgp4_3 <removed> from 10.1.4.1] (100/40) [i]',
+    ...     '\\tvia 10.1.10.2 on ve1',
+    ...     '                     unicast [ibgp4_1 <removed> from 10.1.2.1] (100/20) [i]',
+    ...     '\\tvia 10.1.10.2 on ve1',
+    ... ]
+    >>> sorted_sample = [
+    ...     'unicast [ibgp4_2 <removed> from 10.1.3.1] (100/30) [i]\\tvia 10.1.10.2 on ve1',
+    ...     'unicast [ibgp4_1 <removed> from 10.1.2.1] (100/20) [i]\\tvia 10.1.10.2 on ve1',
+    ...     'unicast [ibgp4_3 <removed> from 10.1.4.1] (100/40) [i]\\tvia 10.1.10.2 on ve1'
+    ... ]
+    >>> pprint(replace_unsorted_route(unsorted_sample, sorted_sample))
+    ['10.1.2.0/24          unicast [ospf4 <removed>] * I (150/20) [10.0.1.2]',
+     '\\tvia 10.1.10.2 on ve1',
+     '10.1.0.0/16          unreachable [static4 <removed>] * (200)',
+     'unicast [ibgp4_2 <removed> from 10.1.3.1] (100/30) [i]',
+     '\\tvia 10.1.10.2 on ve1',
+     'unicast [ibgp4_1 <removed> from 10.1.2.1] (100/20) [i]',
+     '\\tvia 10.1.10.2 on ve1',
+     'unicast [ibgp4_3 <removed> from 10.1.4.1] (100/40) [i]',
+     '\\tvia 10.1.10.2 on ve1']
+    """
+    sorted_index = 0
+    for index, line in enumerate(unsorted):
+        if select_secondary_route(line):
+            line_1, line_2 = sort[sorted_index].split("\t")
+            unsorted[index] = line_1
+            unsorted[index + 1] = f"\t{line_2}"
+            sorted_index += 1
+
+    return unsorted
+
+
+def write_table_as_txt(table: List[str]) -> None:
+    with open(f"{file_name}", "w") as txt_f:
+        for line in table:
+            txt_f.write(f"{line}\n")
+
+
+if __name__ == "__main__":
+    # import doctest
+    # doctest.testmod()
+    file_name = sys.argv[1]
+    main()
