@@ -6,7 +6,15 @@ Table master6:
 	via 2001:db8:3:13::1 on ve2
 2001:db8:2::/48      unicast [ebgp6 <removed>] * (100) [AS2i]
 	via 2001:db8:3:13::1 on ve2
+                     unicast [ibgp6_3 <removed> from 2001:db8:4:4::1] (100/40) [AS2i]
+	via fe80::<removed> on ve1
 2001:db8:4::/48      unreachable [static6 <removed>] * (200)
+                     unicast [ibgp6_1 <removed> from 2001:db8:4:2::1] (100/20) [i]
+	via fe80::<removed> on ve1
+                     unicast [ibgp6_2 <removed> from 2001:db8:4:3::1] (100/30) [i]
+	via fe80::<removed> on ve1
+                     unicast [ibgp6_3 <removed> from 2001:db8:4:4::1] (100/40) [i]
+	via fe80::<removed> on ve1
 2001:db8:4:11::/64   unicast [ospf6 <removed>] * I (150/20) [10.0.4.2]
 	via fe80::<removed> on ve1
 2001:db8:4:10::/64   unicast [ospf6 <removed>] * I (150/10) [10.0.4.1]
