@@ -14,6 +14,9 @@ netlab-int/tests/__pycache__
 
 netlab-int/.NOTES.md
 
+netlab/common/bird
+netlab/common/birdc
+
 # Virtual enviroments
 env/
 .env
