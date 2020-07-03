@@ -15,6 +15,12 @@ def test_wait():
 
 
 @pytest.mark.parametrize("exp_devs", EXPECTED_DEVICES)
+def test_logging(exp_devs: str):
+    """Check the log files. There should only DBG, INFO and TRACE messages"""
+    tk.read_logs(exp_devs, "bird.log")
+
+
+@pytest.mark.parametrize("exp_devs", EXPECTED_DEVICES)
 def test_krt_routes_ipv4(exp_devs: str):
     """IPv4: get the content of KERNEL tables and check it"""
     tk.test_krt_routes("krt4", exp_devs, "IPv4")

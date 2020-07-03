@@ -90,6 +90,13 @@ def read_file(name: str) -> None:
         return txt.read().split("\n")
 
 
+def read_logs(dev: str, filename: str) -> bool:
+    if os.system(f"./tests/test_logs {dev}/{filename}"):
+        return
+    else:
+        assert False
+
+
 def modify_command(dev: str) -> str:
     cmd = f"cd {dev} && sudo ./birdc -l show protocols"
     return cmd
