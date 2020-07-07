@@ -17,7 +17,8 @@ def test_wait():
 @pytest.mark.parametrize("exp_devs", EXPECTED_DEVICES)
 def test_logging(exp_devs: str):
     """Check the log files. There should only DBG, INFO and TRACE messages"""
-    tk.read_logs(exp_devs, "bird.log")
+    messages = ()
+    tk.test_logs(exp_devs, messages)
 
 
 @pytest.mark.parametrize("exp_devs", EXPECTED_DEVICES)
