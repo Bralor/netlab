@@ -54,7 +54,7 @@ def save_bird_routes(
 ) -> None:
     os.system(
         f""" \
-        ./tests/get_stdout_bird '{dev}' 'table {table}' '{opts}' '{loc}/{key}-{dev}'
+        ./tests/get_stdout_bird '{dev}' 'table {table}' '{opts}' > '{loc}/{key}-{dev}'
         """
     )
 
@@ -88,6 +88,13 @@ def write_krt_routes(name: str, content: str) -> None:
 def read_file(name: str) -> None:
     with open(name, "r") as txt:
         return txt.read().split("\n")
+
+
+def test_logs(dev: str, x, filename: str = "bird.log") -> bool:
+    if os.system(f"egrep -v 'DBG|TRACE|INFO|{'|'.join(x)}' {filename}"):
+        return
+    else:
+        assert False
 
 
 def modify_command(dev: str) -> str:
