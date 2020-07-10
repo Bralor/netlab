@@ -54,7 +54,7 @@ def save_bird_routes(
 ) -> None:
     os.system(
         f""" \
-        ./tests/get_stdout_bird '{dev}' 'table {table}' '{opts}' > '{loc}/{key}-{dev}'
+        ./tests/get_stdout_bird '{dev}' 'table {table}' '{opts}' '{loc}/{key}-{dev}'
         """
     )
 
@@ -91,7 +91,9 @@ def read_file(name: str) -> None:
 
 
 def test_logs(dev: str, log_messages: tuple(), filename: str = "bird.log") -> bool:
-    if os.system(f"egrep -v 'DBG|TRACE|INFO|{'|'.join(log_messages)}' {filename}"):
+    if os.system(
+        f"egrep -v 'DBG|TRACE|INFO{''.join(log_messages)}' {dev}/{filename}"
+    ):
         return
     else:
         assert False
