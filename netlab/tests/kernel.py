@@ -90,6 +90,15 @@ def read_file(name: str) -> None:
         return txt.read().split("\n")
 
 
+def test_logs(dev: str, log_messages: tuple(), filename: str = "bird.log") -> bool:
+    if os.system(
+        f"egrep -v 'DBG|TRACE|INFO{''.join(log_messages)}' {dev}/{filename}"
+    ):
+        return
+    else:
+        assert False
+
+
 def modify_command(dev: str) -> str:
     cmd = f"cd {dev} && sudo ./birdc -l show protocols"
     return cmd

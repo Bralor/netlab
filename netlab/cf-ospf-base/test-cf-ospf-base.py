@@ -6,12 +6,18 @@ import tests.config as cf
 
 LIMIT = 60
 EXPECTED_DEVICES = ("m1", "m2", "m3", "m4", "m5", "m6", "m7", "m8")
-
+LOGGING_MESSAGES = ()
 
 @pytest.mark.skipif(cf.save == False, reason="mode: save")
 def test_wait():
     """Wait until the time (limit) runs out"""
     tk.wait(LIMIT)
+
+
+@pytest.mark.parametrize("exp_devs", EXPECTED_DEVICES)
+def test_logging(exp_devs: str):
+    """Check the log files. There should only DBG, INFO and TRACE messages"""
+    tk.test_logs(exp_devs, LOGGING_MESSAGES)
 
 
 @pytest.mark.parametrize("exp_devs", EXPECTED_DEVICES)

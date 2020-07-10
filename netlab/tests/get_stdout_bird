@@ -5,4 +5,4 @@ cd $1 && ./birdc -l show route $2 $3 \
     | strip_timestamp \
     | strip_addresses \
     | strip_interfaces_on \
-    | ../tests/sort_secondary_routes $4
+    | ../tests/sort_secondary_routes $4  # just temporary script for sorting
