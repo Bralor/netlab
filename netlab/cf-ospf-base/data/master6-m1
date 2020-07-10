@@ -1,0 +1,89 @@
+BIRD <removed> ready.
+Table master6:
+2001:db8:8:11::/64   unicast [ospf6 <removed>] * E2 (150/40/10000) [10.0.0.8]
+	via fe80::<removed> on ve2
+2001:db8:1:11::/64   unicast [static6 <removed>] * (200)
+	via 2001:db8:1:1::10 on ve0
+2001:db8:2:11::/64   unicast [ospf6 <removed>] * E2 (150/20/10000) [10.0.0.2]
+	via fe80::<removed> on ve1
+2001:db8:3:11::/64   unicast [ospf6 <removed>] * E2 (150/20/10000) [10.0.0.3]
+	via fe80::<removed> on ve2
+2001:db8:4:11::/64   unicast [ospf6 <removed>] * E2 (150/30/10000) [10.0.0.4]
+	via fe80::<removed> on <removed> weight 1
+	via fe80::<removed> on <removed> weight 1
+2001:db8:5:11::/64   unicast [ospf6 <removed>] * E2 (150/30/10000) [10.0.0.5]
+	via fe80::<removed> on ve2
+2001:db8:6:11::/64   unicast [ospf6 <removed>] * E2 (150/30/10000) [10.0.0.6]
+	via fe80::<removed> on ve2
+2001:db8:7:11::/64   unicast [ospf6 <removed>] * E2 (150/40/10000) [10.0.0.7]
+	via fe80::<removed> on ve2
+2001:db8:8:10::/64   unicast [ospf6 <removed>] * E2 (150/40/10000) [10.0.0.8]
+	via fe80::<removed> on ve2
+2001:db8:1:10::/64   unicast [static6 <removed>] * (200)
+	via 2001:db8:1:1::10 on ve0
+2001:db8:3:10::/64   unicast [ospf6 <removed>] * E2 (150/20/10000) [10.0.0.3]
+	via fe80::<removed> on ve2
+2001:db8:2:10::/64   unicast [ospf6 <removed>] * E2 (150/20/10000) [10.0.0.2]
+	via fe80::<removed> on ve1
+2001:db8:5:10::/64   unicast [ospf6 <removed>] * E2 (150/30/10000) [10.0.0.5]
+	via fe80::<removed> on ve2
+2001:db8:4:10::/64   unicast [ospf6 <removed>] * E2 (150/30/10000) [10.0.0.4]
+	via fe80::<removed> on <removed> weight 1
+	via fe80::<removed> on <removed> weight 1
+2001:db8:7:10::/64   unicast [ospf6 <removed>] * E2 (150/40/10000) [10.0.0.7]
+	via fe80::<removed> on ve2
+2001:db8:6:10::/64   unicast [ospf6 <removed>] * E2 (150/30/10000) [10.0.0.6]
+	via fe80::<removed> on ve2
+2001:db8:8:1::/64    unicast [ospf6 <removed>] * I (150/40) [10.0.0.8]
+	via fe80::<removed> on ve2
+2001:db8:1:1::/64    unicast [ospf6 <removed>] * I (150/10) [10.0.0.1]
+	dev ve0
+2001:db8:2:1::/64    unicast [ospf6 <removed>] * I (150/20) [10.0.0.2]
+	via fe80::<removed> on ve1
+2001:db8:3:1::/64    unicast [ospf6 <removed>] * I (150/20) [10.0.0.3]
+	via fe80::<removed> on ve2
+2001:db8:4:1::/64    unicast [ospf6 <removed>] * I (150/30) [10.0.0.4]
+	via fe80::<removed> on <removed> weight 1
+	via fe80::<removed> on <removed> weight 1
+2001:db8:5:1::/64    unicast [ospf6 <removed>] * I (150/30) [10.0.0.5]
+	via fe80::<removed> on ve2
+2001:db8:6:1::/64    unicast [ospf6 <removed>] * I (150/30) [10.0.0.6]
+	via fe80::<removed> on ve2
+2001:db8:7:1::/64    unicast [ospf6 <removed>] * I (150/40) [10.0.0.7]
+	via fe80::<removed> on ve2
+2001:db8:60:1::/64   unicast [ospf6 <removed>] * E2 (150/40/10000) [10.0.0.8]
+	via fe80::<removed> on ve2
+2001:db8:50:1::/64   unicast [static6 <removed>] * (200)
+	via 2001:db8:1:1::10 on ve0
+                     unicast [ospf6 <removed>] E2 (150/20/10000) [10.0.0.2]
+	via fe80::<removed> on ve1
+2001:db8:8:21::/64   unicast [ospf6 <removed>] * I (150/40) [10.0.0.8]
+	via fe80::<removed> on ve2
+2001:db8:2:21::/64   unicast [ospf6 <removed>] * I (150/20) [10.0.0.2]
+	via fe80::<removed> on ve1
+2001:db8:3:21::/64   unicast [ospf6 <removed>] * I (150/20) [10.0.0.3]
+	via fe80::<removed> on ve2
+2001:db8:4:21::/64   unicast [ospf6 <removed>] * I (150/30) [10.0.0.4]
+	via fe80::<removed> on <removed> weight 1
+	via fe80::<removed> on <removed> weight 1
+2001:db8:5:21::/64   unicast [ospf6 <removed>] * I (150/30) [10.0.0.5]
+	via fe80::<removed> on ve2
+2001:db8:6:21::/64   unicast [ospf6 <removed>] * I (150/30) [10.0.0.6]
+	via fe80::<removed> on ve2
+2001:db8:7:21::/64   unicast [ospf6 <removed>] * I (150/40) [10.0.0.7]
+	via fe80::<removed> on ve2
+2001:db8:8:20::/64   unicast [ospf6 <removed>] * I (150/40) [10.0.0.8]
+	via fe80::<removed> on ve2
+2001:db8:3:20::/64   unicast [ospf6 <removed>] * I (150/20) [10.0.0.3]
+	via fe80::<removed> on ve2
+2001:db8:2:20::/64   unicast [ospf6 <removed>] * I (150/20) [10.0.0.2]
+	via fe80::<removed> on ve1
+2001:db8:5:20::/64   unicast [ospf6 <removed>] * I (150/30) [10.0.0.5]
+	via fe80::<removed> on ve2
+2001:db8:4:20::/64   unicast [ospf6 <removed>] * I (150/30) [10.0.0.4]
+	via fe80::<removed> on <removed> weight 1
+	via fe80::<removed> on <removed> weight 1
+2001:db8:7:20::/64   unicast [ospf6 <removed>] * I (150/40) [10.0.0.7]
+	via fe80::<removed> on ve2
+2001:db8:6:20::/64   unicast [ospf6 <removed>] * I (150/30) [10.0.0.6]
+	via fe80::<removed> on ve2
