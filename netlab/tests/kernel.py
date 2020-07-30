@@ -2,6 +2,7 @@ import os
 import sys
 import time
 import subprocess
+from typing import List
 
 import tests.config as cf
 
@@ -90,13 +91,50 @@ def read_file(name: str) -> None:
         return txt.read().split("\n")
 
 
-def test_logs(dev: str, log_messages: tuple(), filename: str = "bird.log") -> bool:
-    if os.system(
-        f"egrep -v 'DBG|TRACE|INFO{''.join(log_messages)}' {dev}/{filename}"
-    ):
-        return
-    else:
-        assert False
+def test_logs(
+    dev: str, log_messages: List[str], filename: str = "bird.log"
+) -> None:
+    """
+    While the variable `log_messages` is an empty list, do the simple check.
+    If `log_messages` is not an empty list, do the consistent check.
+    """
+    pattern = "DBG|TRACE|INFO"
+    logfile = f"{dev}/{filename}"
+
+    if not log_messages:
+        if not os.system(f"egrep -v '{pattern}' {logfile}"):
+            assert False, "Log file contains incorrect message"
+    
+    elif log_messages:
+        pattern = f"{pattern}|{'|'.join(log_messages)}"
+
+        check_expected_logs_timeout(log_messages, logfile)
+
+        if not os.system(f"egrep -v '{pattern}' {logfile}"):
+            assert False, "Log file contains incorrect message"
+
+
+def check_expected_logs_timeout(log_messages: str, logfile: str) -> None:
+    for _ in range(59):
+        if not check_expected_logs(log_messages, logfile):
+            return
+        else:
+            time.sleep(1)
+    assert False, "Log file contains incorrect message"
+
+
+def check_expected_logs(log_messages: List[str], logfile: str) -> bool:
+    """
+    True -> if there IS NOT variable `message` in variable `logfile`
+    False -> if there IS variable `message` in variable `logfile`
+    """
+    for message in log_messages:
+        if os.system(f"egrep '{message}' {logfile}"):
+            return True
+        else:
+            continue
+
+    return
 
 
 def modify_command(dev: str) -> str:
