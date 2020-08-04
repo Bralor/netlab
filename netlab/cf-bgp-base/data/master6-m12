@@ -1,14 +1,8 @@
 BIRD <removed> ready.
 Table master6:
 2001:db8:1::/48      unreachable [static6 <removed>] * (200)
-                     unicast [ibgp6_1 <removed> from 2001:db8:1:1::1] (100/20) [i]
-	via fe80::<removed> on ve2
-                     unicast [ibgp6_2 <removed> from 2001:db8:1:4::1] (100/30) [i]
-	via fe80::<removed> on ve1
 2001:db8:3::/48      unicast [ibgp6_1 <removed> from 2001:db8:1:1::1] * (100/20) [AS3i]
 	via fe80::<removed> on ve2
-                     unicast [ibgp6_2 <removed> from 2001:db8:1:4::1] (100/30) [AS3i]
-	via fe80::<removed> on ve1
 2001:db8:2::/48      unicast [ibgp6_2 <removed> from 2001:db8:1:4::1] * (100/30) [AS2i]
 	via fe80::<removed> on ve1
 2001:db8:4::/48      unicast [ibgp6_1 <removed> from 2001:db8:1:1::1] * (100/20) [AS4i]
