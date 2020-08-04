@@ -3,10 +3,12 @@ import pytest
 import tests.kernel as tk
 import tests.config as cf
 
+from typing import List
+
 
 LIMIT = 60
 EXPECTED_DEVICES = ("m1", "m2", "m3", "m4", "m5", "m6", "m7", "m8")
-LOGGING_MESSAGES = ()
+#LOGS_M = ["<INFO> Started"]
 
 @pytest.mark.skipif(cf.save == False, reason="mode: save")
 def test_wait():
@@ -14,10 +16,22 @@ def test_wait():
     tk.wait(LIMIT)
 
 
-@pytest.mark.parametrize("exp_devs", EXPECTED_DEVICES)
-def test_logging(exp_devs: str):
+@pytest.mark.parametrize(
+    "exp_devs, exp_messages",
+    [
+        pytest.param("m1", []),
+        pytest.param("m2", []),
+        pytest.param("m3", []),
+        pytest.param("m4", []),
+        pytest.param("m5", []),
+        pytest.param("m6", []),
+        pytest.param("m7", []),
+        pytest.param("m8", []),
+    ],
+)
+def test_logging(exp_devs: str, exp_messages: List[str]):
     """Check the log files. There should only DBG, INFO and TRACE messages"""
-    tk.test_logs(exp_devs, LOGGING_MESSAGES)
+    tk.test_logs(exp_devs, exp_messages)
 
 
 @pytest.mark.parametrize("exp_devs", EXPECTED_DEVICES)
