@@ -2,12 +2,14 @@
 
 def func(a: int, b: int, **args) -> int:
     if args.get("rezim") == "soucet":
+        print(a + b)
         return a + b
 
     if args.get("rezim") == "rozdil":
+        print(a - b)
         return a - b
 
 
-print(func(1, 14, rezim="soucet"))
-print(func(14, 1, rezim="rozdil"))
+func(1, 14, rezim="soucet")
+func(14, 1, rezim="rozdil")
 
