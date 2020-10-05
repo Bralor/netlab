@@ -3,8 +3,6 @@ import pytest
 import tests.kernel as tk
 import tests.config as cf
 
-from typing import List
-
 
 LIMIT = 60
 EXPECTED_DEVICES = ("m1", "m2", "m3", "m4", "m5", "m6", "m7", "m8")
@@ -16,40 +14,22 @@ def test_wait():
     tk.wait(LIMIT)
 
 
-@pytest.mark.parametrize(
-    "exp_devs, exp_messages",
-    [
-        pytest.param("m1", []),
-        pytest.param("m2", []),
-        pytest.param("m3", []),
-        pytest.param("m4", []),
-        pytest.param("m5", []),
-        pytest.param("m6", []),
-        pytest.param("m7", []),
-        pytest.param("m8", []),
-    ],
-)
-def test_logging(exp_devs: str, exp_messages: List[str]):
-    """Check the log files. There should only DBG, INFO and TRACE messages"""
-    tk.test_logs(exp_devs, exp_messages)
-
-
 @pytest.mark.parametrize("exp_devs", EXPECTED_DEVICES)
 def test_krt_routes_ipv4(exp_devs: str):
     """IPv4: get the content of KERNEL tables and check it"""
-    tk.test_krt_routes("krt4", exp_devs, "IPv4")
+    tk.test_krt_routes("krt4", exp_devs, "inet")
 
 
 @pytest.mark.parametrize("exp_devs", EXPECTED_DEVICES)
 def test_krt_routes_ipv4_ospf3(exp_devs: str):
     """IPv4: get the content of KERNEL tables and check it"""
-    tk.test_krt_routes("krt5", exp_devs, "IPv4", "100")
+    tk.test_krt_routes("krt5", exp_devs, "inet", "100")
 
 
 @pytest.mark.parametrize("exp_devs", EXPECTED_DEVICES)
 def test_krt_routes_ipv6(exp_devs: str):
     """IPv6: get the content of KERNEL tables and check it"""
-    tk.test_krt_routes("krt6", exp_devs, "IPv6")
+    tk.test_krt_routes("krt6", exp_devs, "inet6")
 
 
 @pytest.mark.parametrize("exp_devs", EXPECTED_DEVICES)
@@ -68,4 +48,3 @@ def test_bird_routes_ipv4_ospf3(exp_devs: str):
 def test_bird_routes_ipv6(exp_devs: str):
     """IPv6: get the content of BIRD tables and check it"""
     tk.test_bird_routes("master6", exp_devs, "master6")
-
