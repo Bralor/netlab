@@ -1,0 +1,6 @@
+BIRD <removed> ready.
+Table master4:
+10.1.1.0/24          unicast [ospf4 <removed>] * I (150/10) [10.0.0.1]
+	dev ve0
+10.0.1.0/24          unicast [ospf4 <removed>] * I (150/10) [10.0.0.1]
+	dev ve1

@@ -1,0 +1,2 @@
+2001:db8:4:1::/64 dev ve0 proto bird metric 32 pref medium
+2001:db8:4:1::/64 dev ve0 proto kernel metric 256 pref medium
