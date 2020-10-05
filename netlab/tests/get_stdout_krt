@@ -1,10 +1,7 @@
 #!/bin/sh
 . tests/strip_output
 
-if [ $1 = "IPv4" ]; then variant=4; fi
-if [ $1 = "IPv6" ]; then variant=6; fi
-
-ip "-$variant" route show $2 \
+ip -f $1 route show $2 \
     | strip_addresses \
     | strip_interfaces_via \
     | strip_nexthop_pref \

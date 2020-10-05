@@ -1,34 +1,45 @@
 import os
-import sys
 import time
 import subprocess
-from typing import List
 
 import tests.config as cf
 
 
-def test_krt_routes(key: str, dev: str, family: str, table: str = "main") -> None:
+def wait(sec: int):
+    time.sleep(sec)
+
+
+def write_krt_routes(name: str, content: str) -> None:
+    with open(name, "w") as txt:
+        txt.write(content)
+
+
+def read_file(name: str) -> list:
+    with open(name, "r") as txt:
+        return txt.read().split("\n")
+
+
+def test_krt_routes(key: str, dev: str, family: str,
+                    table: str = "main") -> None:
     if cf.save:
         save_krt_routes(key, dev, family, table)
     else:
         check_krt_routes_timeout(key, dev, family, table)
 
 
-def save_krt_routes(
-    key: str, dev: str, family: str, table: str, loc: str = cf.datadir
-) -> None:
-    os.system(
-        f""" \
+def save_krt_routes(key: str, dev: str, family: str,
+                    table: str, loc: str = cf.datadir) -> None:
+    os.system(f""" \
         ip netns exec {dev} \
         ./tests/get_stdout_krt '{family}' 'table {table}' \
         > {loc}/{key}-{dev} \
-        """
-    )
+        """)
 
 
-def check_krt_routes_timeout(key: str, dev: str, family: str, table: str) -> None:
+def check_krt_routes_timeout(key: str, dev: str,
+                             family: str, table: str) -> None:
     timeout = 60
-    for sec in range(timeout):
+    for _ in range(timeout):
         if check_krt_routes(key, dev, family, table):
             return
         else:
@@ -36,7 +47,7 @@ def check_krt_routes_timeout(key: str, dev: str, family: str, table: str) -> Non
     assert 0
 
 
-def check_krt_routes(key: str, dev: str, family: str, table: str) -> None:
+def check_krt_routes(key: str, dev: str, family: str, table: str) -> bool:
     save_krt_routes(key, dev, family, table, cf.tempdir)
     current_table = read_file(f"{cf.tempdir}/{key}-{dev}")
     saved_table = read_file(f"{cf.datadir}/{key}-{dev}")
@@ -50,19 +61,18 @@ def test_bird_routes(key: str, dev: str, table: str, opts: str = "") -> None:
         check_bird_routes_timeout(key, dev, table, opts)
 
 
-def save_bird_routes(
-    key: str, dev: str, table: str, opts: str, loc: str = cf.datadir
-) -> None:
-    os.system(
-        f""" \
-        ./tests/get_stdout_bird '{dev}' 'table {table}' '{opts}' '{loc}/{key}-{dev}'
-        """
-    )
+def save_bird_routes(key: str, dev: str, table: str,
+                     opts: str, loc: str = cf.datadir) -> None:
+    os.system(f""" \
+        ./tests/get_stdout_bird '{dev}' 'table {table}' '{opts}' \
+        > {loc}/{key}-{dev} \
+        """)
 
 
-def check_bird_routes_timeout(key: str, dev: str, table: str, opts: str) -> None:
+def check_bird_routes_timeout(key: str, dev: str,
+                              table: str, opts: str) -> None:
     timeout = 60
-    for sec in range(timeout):
+    for _ in range(timeout):
         if check_bird_routes(key, dev, table, opts):
             return
         else:
@@ -70,106 +80,113 @@ def check_bird_routes_timeout(key: str, dev: str, table: str, opts: str) -> None
     assert 0
 
 
-def check_bird_routes(key: str, dev: str, table: str, opts: str) -> None:
+def check_bird_routes(key: str, dev: str, table: str, opts: str) -> bool:
     save_bird_routes(key, dev, table, opts, cf.tempdir)
     current_table = read_file(f"{cf.tempdir}/{key}-{dev}")
     saved_table = read_file(f"{cf.datadir}/{key}-{dev}")
     return saved_table == current_table
 
 
-def wait(sec: int):
-    time.sleep(sec)
+def test_ospf_neighbors(**kwargs) -> None:
+    if cf.save:
+        save_available_neighbors(
+            kwargs["key"],
+            kwargs["dev"],
+            kwargs["protocol"]
+        )
+    else:
+        check_ospf_neighbors_timeout(
+            kwargs["key"],
+            kwargs["dev"],
+            kwargs["protocol"]
+        )
 
 
-def write_krt_routes(name: str, content: str) -> None:
-    with open(name, "w") as txt:
-        txt.write(content)
+def save_available_neighbors(key: str, dev: str, protocol: str,
+                             loc: str = cf.datadir) -> None:
+    os.system(f"""./tests/get_ospf_neighbors '{dev}' '{protocol}' \
+                  > {loc}/{key}-{protocol}-{dev} """)
 
 
-def read_file(name: str) -> None:
-    with open(name, "r") as txt:
-        return txt.read().split("\n")
-
-
-def test_logs(
-    dev: str, log_messages: List[str], filename: str = "bird.log"
-) -> None:
-    """
-    While the variable `log_messages` is an empty list, do the simple check.
-    If `log_messages` is not an empty list, do the consistent check.
-    """
-    pattern = "DBG|TRACE|INFO"
-    logfile = f"{dev}/{filename}"
-
-    if not log_messages:
-        if not os.system(f"egrep -v '{pattern}' {logfile}"):
-            assert False, "Log file contains incorrect message"
-    
-    elif log_messages:
-        pattern = f"{pattern}|{'|'.join(log_messages)}"
-
-        check_expected_logs_timeout(log_messages, logfile)
-
-        if not os.system(f"egrep -v '{pattern}' {logfile}"):
-            assert False, "Log file contains incorrect message"
-
-
-def check_expected_logs_timeout(log_messages: str, logfile: str) -> None:
-    for _ in range(59):
-        if not check_expected_logs(log_messages, logfile):
+def check_ospf_neighbors_timeout(key: str, dev: str,
+                                 protocol: str, **kwargs) -> None:
+    for _ in range(kwargs.get("timeout", 60)):
+        if check_ospf_neighbors(key, dev, protocol):
             return
         else:
             time.sleep(1)
-    assert False, "Log file contains incorrect message"
+
+    raise Exception(f"FAILURE! Neighbors in save/check mode are different!")
 
 
-def check_expected_logs(log_messages: List[str], logfile: str) -> bool:
+def check_ospf_neighbors(key: str, dev: str, protocol: str) -> bool:
+    save_available_neighbors(key, dev, protocol, loc=cf.tempdir)
+
+    return read_file(f"{cf.datadir}/{key}-{protocol}-{dev}") \
+        == read_file(f"{cf.tempdir}/{key}-{protocol}-{dev}")
+
+
+def process_command(command: str) -> list:
     """
-    True -> if there IS NOT variable `message` in variable `logfile`
-    False -> if there IS variable `message` in variable `logfile`
+    Run parameter 'command' inside the Shell and capture the stdout.
+
+    Parameters
+    ----------
+    command : str
+        Specific command for Bird
+
+    Returns
+    -------
+    stdout : list
+        List of splitted lines from stdout
+
     """
-    for message in log_messages:
-        if os.system(f"egrep '{message}' {logfile}"):
-            return True
-        else:
-            continue
-
-    return
+    stdout = subprocess.Popen(command, stdout=subprocess.PIPE, shell=True
+    ).communicate()[0]
+    return stdout.decode("utf-8").split("\n")
 
 
-def modify_command(dev: str) -> str:
-    cmd = f"cd {dev} && sudo ./birdc -l show protocols"
-    return cmd
-
-
-def save_stdout(cmd: str) -> str:
-    """Run the command :cmd: and return it as variable (stdout)"""
-    process = subprocess.Popen(cmd, stdout=subprocess.PIPE, shell=True)
-    proc_stdout = process.communicate()[0].strip()
-
-    return proc_stdout.decode("utf-8")
-
-
-def get_attributes_from_output(data: str, protocol: str) -> list:
-    """Parse the string from parameter and return list"""
-    return [line.split() for line in data.split("\n") if line.startswith(protocol)]
-
-
-def check_running_protocols(data: list) -> None:
-    """Assertion that all protocols are running properly"""
-    assert "Running" in data
-
-
-def check_protocol_state(dev: str, protocol: str) -> None:
+def run_configure(dev: str, conf_file: str) -> None:
     """
-    1. Modify the specified bash command with proper variable
-    2. Send bash command into the function and return output as str
-    3. Collect all desirable lines into single list
-    4. If every single line contains "Running" as a state --> pass
-    """
-    command = modify_command(dev)
-    decoded = save_stdout(command)
-    clean_str = get_attributes_from_output(decoded, protocol)
+    Create command './birdc -l configure', then process and verify the
+    variable 'captured_stdout'.
 
-    for line in clean_str:
-        check_running_protocols(line)
+    Parameters
+    ----------
+    dev : str
+        Name of the device
+    conf_file : str
+        Name of the config file
+
+    Returns
+    -------
+    None
+
+    """
+    command = f"cd {dev} && ./birdc -l configure \'\"{conf_file}\"\'"
+    captured_stdout = process_command(command)
+    assert (conf_file in captured_stdout[1]
+            and "Reconfigured" in captured_stdout[2])
+
+
+def run_command(dev: str, **kwargs) -> list:
+    """
+    Create command './birdc -l {args}', then process and return the
+    variable 'captured_stdout'.
+
+    Parameters
+    ----------
+    dev : str
+        Name of the device
+    args : str
+        Different arguments of specific command
+
+    Returns
+    -------
+    captured_stdout : List
+        List of splitted lines from stdout
+
+    """
+    command = f"cd {dev} && ./birdc -l {kwargs['command']}"
+    return process_command(command)
+

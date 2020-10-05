@@ -32,3 +32,4 @@ strip_link_local_routes() {
     # remove 'local' kernel routes for link-local networks (for local or vrf tables)
     egrep -v '^(anycast|local) fe80|^fe80::/64|^ff00::/8'
 }
+

@@ -17,13 +17,19 @@ def test_wait():
 @pytest.mark.parametrize("exp_devs", EXPECTED_DEVICES)
 def test_krt_routes_ipv4(exp_devs: str):
     """IPv4: get the content of KERNEL tables and check it"""
-    tk.test_krt_routes("krt4", exp_devs, "IPv4")
+    tk.test_krt_routes("krt4", exp_devs, "inet")
+
+
+@pytest.mark.parametrize("exp_devs", EXPECTED_DEVICES)
+def test_krt_routes_ipv4_ospf3(exp_devs: str):
+    """IPv4: get the content of KERNEL tables and check it"""
+    tk.test_krt_routes("krt5", exp_devs, "inet", "100")
 
 
 @pytest.mark.parametrize("exp_devs", EXPECTED_DEVICES)
 def test_krt_routes_ipv6(exp_devs: str):
     """IPv6: get the content of KERNEL tables and check it"""
-    tk.test_krt_routes("krt6", exp_devs, "IPv6")
+    tk.test_krt_routes("krt6", exp_devs, "inet6")
 
 
 @pytest.mark.parametrize("exp_devs", EXPECTED_DEVICES)

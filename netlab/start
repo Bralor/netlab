@@ -2,23 +2,47 @@
 
 set -e
 
-while getopts ":c:h:" OPTION; do
+showhelp() {
+	echo -e "USAGE: $0 [-c <cf-ospf|cf-babel|...> ]"
+	echo
+	echo -e "\t-d\t\tenable BIRD debug mode"
+	echo -e "\t-V \"args\"\trun Valgrind with these args"
+	echo -e "\t-h\t\tshow this help"
+}
+
+while getopts ":c:hdV:" OPTION; do
 	case "${OPTION}" in
 		c)
 			CONF=${OPTARG}
 			if [ -d "$CONF" ]; then
 				echo -e "Creating symlink config --> $CONF\n"
 				ln -s "${CONF}" config
-				. netlab_lib
-				. config/config
-			
 			else
 				echo "Incorrect name of protocol"
 			fi
 			;;
 
-		h|--h)
-			echo -e "USAGE: $0 [-c <cf-ospf|cf-babel|...> ]\n"
+		d)
+			export BIRD_DEBUG=true
+			;;
+		V)
+			export VALGRIND_ARGS="${OPTARG}"
+			;;
+		h)
+			showhelp
+			exit 0
+			;;
+		*)
+			showhelp
+			exit 2
 			;;
 	esac
 done
+
+if [ -z "${CONF}" ]; then
+	showhelp
+	exit 2
+fi
+
+. netlab_lib
+. config/config

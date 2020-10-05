@@ -1,33 +1,27 @@
 BIRD <removed> ready.
 Table master4:
-10.4.13.0/24         unicast [ospf4 <removed>] * I (150/20) [10.0.1.1]
+10.1.0.0/16          unreachable [static4 <removed>] * (200)
+10.1.1.0/24          unicast [ospf4 <removed>] * I (150/20) [10.0.1.1]
 	via 10.1.10.1 on ve2
 10.1.10.0/24         unicast [ospf4 <removed>] * I (150/10) [10.0.1.2]
 	dev ve2
-10.1.3.0/24          unicast [ospf4 <removed>] * I (150/20) [10.0.1.3]
-	via 10.1.11.2 on ve1
-10.1.4.0/24          unicast [ospf4 <removed>] * I (150/30) [10.0.1.4]
-	via 10.1.11.2 on ve1
-10.3.0.0/16          unicast [ibgp4_1 <removed> from 10.1.1.1] * (100/20) [AS3i]
-	via 10.1.10.1 on ve2
-                     unicast [ibgp4_2 <removed> from 10.1.4.1] (100/30) [AS3i]
-	via 10.1.11.2 on ve1
-10.4.0.0/16          unicast [ibgp4_1 <removed> from 10.1.1.1] * (100/20) [AS4i]
-	via 10.1.10.1 on ve2
-10.1.1.0/24          unicast [ospf4 <removed>] * I (150/20) [10.0.1.1]
-	via 10.1.10.1 on ve2
-10.1.2.0/24          unicast [ospf4 <removed>] * I (150/10) [10.0.1.2]
-	dev ve0
-10.1.0.0/16          unreachable [static4 <removed>] * (200)
-                     unicast [ibgp4_1 <removed> from 10.1.1.1] (100/20) [i]
-	via 10.1.10.1 on ve2
-                     unicast [ibgp4_2 <removed> from 10.1.4.1] (100/30) [i]
-	via 10.1.11.2 on ve1
-10.2.0.0/16          unicast [ibgp4_2 <removed> from 10.1.4.1] * (100/30) [AS2i]
-	via 10.1.11.2 on ve1
 10.1.11.0/24         unicast [ospf4 <removed>] * I (150/10) [10.0.1.2]
 	dev ve1
 10.1.12.0/24         unicast [ospf4 <removed>] * I (150/20) [10.0.1.3]
 	via 10.1.11.2 on ve1
 10.1.13.0/24         unicast [ospf4 <removed>] * I (150/30) [10.0.1.4]
 	via 10.1.11.2 on ve1
+10.1.2.0/24          unicast [ospf4 <removed>] * I (150/10) [10.0.1.2]
+	dev ve0
+10.1.3.0/24          unicast [ospf4 <removed>] * I (150/20) [10.0.1.3]
+	via 10.1.11.2 on ve1
+10.1.4.0/24          unicast [ospf4 <removed>] * I (150/30) [10.0.1.4]
+	via 10.1.11.2 on ve1
+10.2.0.0/16          unicast [ibgp4_2 <removed> from 10.1.4.1] * (100/30) [AS2i]
+	via 10.1.11.2 on ve1
+10.3.0.0/16          unicast [ibgp4_1 <removed> from 10.1.1.1] * (100/20) [AS3i]
+	via 10.1.10.1 on ve2
+10.4.0.0/16          unicast [ibgp4_1 <removed> from 10.1.1.1] * (100/20) [AS4i]
+	via 10.1.10.1 on ve2
+10.4.13.0/24         unicast [ospf4 <removed>] * I (150/20) [10.0.1.1]
+	via 10.1.10.1 on ve2

@@ -1,0 +1,16 @@
+2001:db8:1:1::/64 via fe80::<removed> dev ve2 proto bird metric 32 pref medium
+2001:db8:1:2::/64 dev ve0 proto bird metric 32 pref medium
+2001:db8:1:2::/64 dev ve0 proto kernel metric 256 pref medium
+2001:db8:1:3::/64 via fe80::<removed> dev ve1 proto bird metric 32 pref medium
+2001:db8:1:4::/64 via fe80::<removed> dev ve1 proto bird metric 32 pref medium
+2001:db8:1:10::/64 dev ve2 proto bird metric 32 pref medium
+2001:db8:1:10::/64 dev ve2 proto kernel metric 256 pref medium
+2001:db8:1:11::/64 dev ve1 proto bird metric 32 pref medium
+2001:db8:1:11::/64 dev ve1 proto kernel metric 256 pref medium
+2001:db8:1:12::/64 via fe80::<removed> dev ve1 proto bird metric 32 pref medium
+2001:db8:1:13::/64 via fe80::<removed> dev ve1 proto bird metric 32 pref medium
+unreachable 2001:db8:1::/48 dev lo proto bird metric 32 pref medium
+2001:db8:2::/48 via fe80::<removed> dev ve1 proto bird metric 32 pref medium
+2001:db8:3::/48 via fe80::<removed> dev ve2 proto bird metric 32 pref medium
+2001:db8:4:13::/64 via fe80::<removed> dev ve2 proto bird metric 32 pref medium
+2001:db8:4::/48 via fe80::<removed> dev ve2 proto bird metric 32 pref medium

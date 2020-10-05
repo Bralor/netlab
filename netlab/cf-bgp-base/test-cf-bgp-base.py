@@ -34,22 +34,22 @@ def test_wait():
 @pytest.mark.parametrize("exp_devs", EXPECTED_DEVICES)
 def test_krt_routes_ipv4(exp_devs: str):
     """IPv4: get the content of KERNEL tables and check it"""
-    tk.test_krt_routes("krt4", exp_devs, "IPv4")
+    tk.test_krt_routes("krt4", exp_devs, "inet")
 
 
 @pytest.mark.parametrize("exp_devs", EXPECTED_DEVICES)
 def test_krt_routes_ipv6(exp_devs: str):
     """IPv6: get the content of KERNEL tables and check it"""
-    tk.test_krt_routes("krt6", exp_devs, "IPv6")
+    tk.test_krt_routes("krt6", exp_devs, "inet6")
 
 
 @pytest.mark.parametrize("exp_devs", EXPECTED_DEVICES)
 def test_bird_routes_ipv4(exp_devs: str):
     """IPv4: get the content of BIRD tables and check it"""
-    tk.test_bird_routes("master4", exp_devs, "master4", "")
+    tk.test_bird_routes("master4", exp_devs, "master4", "primary")
 
 
 @pytest.mark.parametrize("exp_devs", EXPECTED_DEVICES)
 def test_bird_routes_ipv6(exp_devs: str):
     """IPv6: get the content of BIRD tables and check it"""
-    tk.test_bird_routes("master6", exp_devs, "master6", "")
+    tk.test_bird_routes("master6", exp_devs, "master6", "primary")

@@ -18,3 +18,4 @@ fi
 if [ -f "common/runtest_args.pckl" ]; then
 	rm common/runtest_args.pckl
 fi
+

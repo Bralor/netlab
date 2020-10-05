@@ -1,0 +1,87 @@
+#!/usr/bin/env python3
+
+# Sort output of BIRD 'show route' command
+#
+# Process lines to a list of networks. Each network is a tuple of a opening line
+# and a list of routes. Each route is a tuple of an opening line and a list of
+# nexthops. Keep list of currently parsed nets / rtes / nhs, and sort them when
+# respective part is done. Note that na opening line of the best route of each
+# network is empty string, as the route description is in the opening line of
+# the net.
+
+import sys
+import re
+
+active_net = '';
+active_rte = '';
+
+nets = []
+rtes = []
+nhs = []
+
+g = sys.modules[__name__]
+
+def first(a):
+    (f,_) = a
+    return f
+
+def end_rte():
+    nhs.sort()
+    rtes.append((active_rte, nhs))
+    g.active_rte = ''
+    g.nhs = []
+
+def end_net():
+    end_rte()
+    rtes.sort(key=first)
+    nets.append((active_net, rtes))
+    g.active_net = ''
+    g.rtes = []
+
+def end_nets():
+    end_net()
+    nets.sort(key=first)
+    print_nets(nets)
+    g.nets = []
+
+def rcv_net(s):
+    if active_net:
+        end_net()
+    g.active_net = s
+
+def rcv_rte(s):
+    if active_rte or active_net:
+        end_rte()
+    g.active_rte = s
+
+def rcv_nh(s):
+    nhs.append(s)
+
+def rcv_rest(s):
+    if active_net:
+        end_nets()
+    print(s)
+
+def print_nets(nets):
+    for (net, rtes) in nets:
+        print(net)
+        for (rte, nhs) in rtes:
+            if rte:
+                print(rte)
+            for nh in nhs:
+                print(nh)
+
+
+for line in sys.stdin:
+    line = line.rstrip('\n')
+    if re.match("^[0-9a-f]", line):
+        rcv_net(line)
+    elif re.match("^ {20}", line):
+        rcv_rte(line)
+    elif re.match("^\t(via|dev)", line):
+        rcv_nh(line)
+    else:
+        rcv_rest(line)
+
+if active_net:
+    end_nets()

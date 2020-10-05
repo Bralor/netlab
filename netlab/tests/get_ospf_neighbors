@@ -1,0 +1,19 @@
+#!/bin/sh
+. tests/strip_output
+
+strip_Dtime() {
+    # remove the Dtime value
+    sed -E "s/[[:digit:]]{2}.[[:digit:]]{3}/<time removed>/"
+}
+
+strip_neighbors_addresses() {
+    # remove ipv6 addresses
+    sed -E "s/(fe80::)[[:alnum:]:]*/\1<removed>/"
+}
+
+cd $1 && ./birdc -l show ospf neighbor $2 \
+    | strip_version \
+    | strip_Dtime \
+    | strip_neighbors_addresses \
+    | sort -n
+

@@ -1,0 +1,4 @@
+BIRD <removed> ready.
+ospf6:
+Router ID   	Pri	     State     	DTime	Interface  Router IP
+10.0.0.5    	  1	Full/PtP  	<time removed>	ve2        fe80::<removed>

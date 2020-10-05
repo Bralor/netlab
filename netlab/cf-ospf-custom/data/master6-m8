@@ -1,22 +1,22 @@
 BIRD <removed> ready.
 Table master6:
-2001:db8:8:11::/64   unicast [static6 <removed>] * (200)
-	via 2001:db8:8:1::10 on ve0
-2001:db8:7:11::/64   unicast [ospf6 <removed>] * E2 (150/20/10000) [10.0.0.7]
-	via fe80::<removed> on ve2
-2001:db8:8:10::/64   unicast [static6 <removed>] * (200)
-	via 2001:db8:8:1::10 on ve0
-2001:db8:7:10::/64   unicast [ospf6 <removed>] * E2 (150/20/10000) [10.0.0.7]
-	via fe80::<removed> on ve2
-2001:db8:8:1::/64    unicast [ospf6 <removed>] * I (150/10) [10.0.0.8]
-	dev ve0
-2001:db8:7:1::/64    unicast [ospf6 <removed>] * I (150/20) [10.0.0.7]
-	via fe80::<removed> on ve2
 2001:db8:60:1::/64   unicast [static6 <removed>] * (200)
 	via 2001:db8:8:1::10 on ve0
                      unicast [ospf6 <removed>] E2 (150/20/10000) [10.0.0.7]
 	via fe80::<removed> on ve2
-2001:db8:7:21::/64   unicast [ospf6 <removed>] * I (150/20) [10.0.0.7]
+2001:db8:7:10::/64   unicast [ospf6 <removed>] * E2 (150/20/10000) [10.0.0.7]
+	via fe80::<removed> on ve2
+2001:db8:7:11::/64   unicast [ospf6 <removed>] * E2 (150/20/10000) [10.0.0.7]
+	via fe80::<removed> on ve2
+2001:db8:7:1::/64    unicast [ospf6 <removed>] * I (150/20) [10.0.0.7]
 	via fe80::<removed> on ve2
 2001:db8:7:20::/64   unicast [ospf6 <removed>] * I (150/20) [10.0.0.7]
 	via fe80::<removed> on ve2
+2001:db8:7:21::/64   unicast [ospf6 <removed>] * I (150/20) [10.0.0.7]
+	via fe80::<removed> on ve2
+2001:db8:8:10::/64   unicast [static6 <removed>] * (200)
+	via 2001:db8:8:1::10 on ve0
+2001:db8:8:11::/64   unicast [static6 <removed>] * (200)
+	via 2001:db8:8:1::10 on ve0
+2001:db8:8:1::/64    unicast [ospf6 <removed>] * I (150/10) [10.0.0.8]
+	dev ve0
