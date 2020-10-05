@@ -1,24 +1,24 @@
 BIRD <removed> ready.
 Table master6:
+2001:db8:10:10::/64  unicast [ospf6 <removed>] * E2 (150/30/10000) [10.0.1.1]
+	via fe80::<removed> on ve1 weight 1
+	via fe80::<removed> on ve2 weight 1
 2001:db8:20:10::/64  unicast [ospf6 <removed>] * E2 (150/20/10000) [10.0.2.2]
 	via fe80::<removed> on ve2
-2001:db8:30:10::/64  unicast [static6 <removed>] * (200)
-	via 2001:db8:2:3::10 on ve0
-2001:db8:10:10::/64  unicast [ospf6 <removed>] * E2 (150/30/10000) [10.0.1.1]
-	via fe80::<removed> on <removed> weight 1
-	via fe80::<removed> on <removed> weight 1
-2001:db8:40:10::/64  unicast [ospf6 <removed>] * E2 (150/20/10000) [10.0.2.4]
-	via fe80::<removed> on ve1
-2001:db8:2:4::/64    unicast [ospf6 <removed>] * I (150/20) [10.0.2.4]
-	via fe80::<removed> on ve1
 2001:db8:2:1::/64    unicast [ospf6 <removed>] * I (150/30) [10.0.1.1]
-	via fe80::<removed> on <removed> weight 1
-	via fe80::<removed> on <removed> weight 1
-2001:db8:50:1::/64   unicast [ospf6 <removed>] * E2 (150/20/10000) [10.0.2.4]
-	via fe80::<removed> on ve1
-2001:db8:2:3::/64    unicast [ospf6 <removed>] * I (150/10) [10.0.2.3]
-	dev ve0
+	via fe80::<removed> on ve1 weight 1
+	via fe80::<removed> on ve2 weight 1
 2001:db8:2:2::/64    unicast [ospf6 <removed>] * I (150/20) [10.0.2.2]
 	via fe80::<removed> on ve2
+2001:db8:2:3::/64    unicast [ospf6 <removed>] * I (150/10) [10.0.2.3]
+	dev ve0
+2001:db8:2:4::/64    unicast [ospf6 <removed>] * I (150/20) [10.0.2.4]
+	via fe80::<removed> on ve1
+2001:db8:30:10::/64  unicast [static6 <removed>] * (200)
+	via 2001:db8:2:3::10 on ve0
+2001:db8:40:10::/64  unicast [ospf6 <removed>] * E2 (150/20/10000) [10.0.2.4]
+	via fe80::<removed> on ve1
+2001:db8:50:1::/64   unicast [ospf6 <removed>] * E2 (150/20/10000) [10.0.2.4]
+	via fe80::<removed> on ve1
 2001:db8:50:2::/64   unicast [ospf6 <removed>] * E2 (150/20/10000) [10.0.2.4]
 	via fe80::<removed> on ve1
