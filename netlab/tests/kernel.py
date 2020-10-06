@@ -116,7 +116,7 @@ def check_ospf_neighbors_timeout(key: str, dev: str,
         else:
             time.sleep(1)
 
-    raise Exception(f"FAILURE! Neighbors in save/check mode are different!")
+    raise Exception("FAILURE! Neighbors in save/check mode are different!")
 
 
 def check_ospf_neighbors(key: str, dev: str, protocol: str) -> bool:
