@@ -1,0 +1,10 @@
+BIRD <removed> ready.
+Table master6:
+2001:db8:60:1::/64   unicast [static6 <removed>] * (200)
+	via 2001:db8:8:1::10 on ve0
+2001:db8:8:10::/64   unicast [static6 <removed>] * (200)
+	via 2001:db8:8:1::10 on ve0
+2001:db8:8:11::/64   unicast [static6 <removed>] * (200)
+	via 2001:db8:8:1::10 on ve0
+2001:db8:8:1::/64    unicast [ospf6 <removed>] * I (150/10) [10.0.0.8]
+	dev ve0
