@@ -35,19 +35,19 @@ def test_krt_routes_ipv6(exp_devs: str):
 @pytest.mark.parametrize("exp_devs", EXPECTED_DEVICES)
 def test_bird_routes_ipv4(exp_devs: str):
     """IPv4: get the content of BIRD tables and check it"""
-    tk.test_bird_routes("master4", exp_devs, "master4")
+    tk.test_bird_routes("master4-cf1", exp_devs, "master4")
 
 
 @pytest.mark.parametrize("exp_devs", EXPECTED_DEVICES)
 def test_bird_routes_ipv4_ospf3(exp_devs: str):
     """IPv4: get the content of BIRD tables and check it"""
-    tk.test_bird_routes("master5", exp_devs, "master5")
+    tk.test_bird_routes("master5-cf1", exp_devs, "master5")
 
 
 @pytest.mark.parametrize("exp_devs", EXPECTED_DEVICES)
 def test_bird_routes_ipv6(exp_devs: str):
     """IPv6: get the content of BIRD tables and check it"""
-    tk.test_bird_routes("master6", exp_devs, "master6")
+    tk.test_bird_routes("master6-cf1", exp_devs, "master6")
 
 
 @pytest.mark.parametrize("exp_devs", EXPECTED_DEVICES)
@@ -81,6 +81,24 @@ def test_wait_after_reconf():
 
 
 @pytest.mark.parametrize("exp_devs", EXPECTED_DEVICES)
+def test_bird_routes_ipv4_after_reconf(exp_devs: str):
+    """IPv4: get the content of BIRD tables and check it"""
+    tk.test_bird_routes("master4-cf2", exp_devs, "master4")
+
+
+@pytest.mark.parametrize("exp_devs", EXPECTED_DEVICES)
+def test_bird_routes_ipv4_ospf3_after_reconf(exp_devs: str):
+    """IPv4: get the content of BIRD tables and check it"""
+    tk.test_bird_routes("master5-cf2", exp_devs, "master5")
+
+
+@pytest.mark.parametrize("exp_devs", EXPECTED_DEVICES)
+def test_bird_routes_ipv6_after_reconf(exp_devs: str):
+    """IPv6: get the content of BIRD tables and check it"""
+    tk.test_bird_routes("master6-cf2", exp_devs, "master6")
+
+
+@pytest.mark.parametrize("exp_devs", EXPECTED_DEVICES)
 def test_ospf_neighbors_ospf4_after_reconf(exp_devs: str):
     """IPv4: After reconfiguration check the neighbor\'s tables"""
     tk.test_ospf_neighbors(key="neighbor-cf2", dev=exp_devs, protocol="ospf4")
@@ -110,6 +128,24 @@ def test_ospf_configure_undo(exp_devs: str):
 def test_wait_after_undo():
     """Wait until the time (limit) runs out"""
     tk.wait(60)
+
+
+@pytest.mark.parametrize("exp_devs", EXPECTED_DEVICES)
+def test_bird_routes_ipv4_after_undo(exp_devs: str):
+    """IPv4: get the content of BIRD tables and check it"""
+    tk.test_bird_routes("master4-cf3", exp_devs, "master4")
+
+
+@pytest.mark.parametrize("exp_devs", EXPECTED_DEVICES)
+def test_bird_routes_ipv4_ospf3_after_undo(exp_devs: str):
+    """IPv4: get the content of BIRD tables and check it"""
+    tk.test_bird_routes("master5-cf3", exp_devs, "master5")
+
+
+@pytest.mark.parametrize("exp_devs", EXPECTED_DEVICES)
+def test_bird_routes_ipv6_after_undo(exp_devs: str):
+    """IPv6: get the content of BIRD tables and check it"""
+    tk.test_bird_routes("master6-cf3", exp_devs, "master6")
 
 
 @pytest.mark.parametrize("exp_devs", EXPECTED_DEVICES)
