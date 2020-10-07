@@ -116,16 +116,18 @@ def test_ospf_neighbors_ospf6_after_reconf(exp_devs: str):
     tk.test_ospf_neighbors(key="neighbor-cf2", dev=exp_devs, protocol="ospf6")
 
 
-def test_different_neighbors_table():
-    expected_addresses = ['10.0.0.3', '10.0.0.5', '10.0.0.6']
-    file1 = tk.read_file("cf-ospf-priority/data/neighbor-cf1-ospf4-m4")
-    file2 = tk.read_file("cf-ospf-priority/data/neighbor-cf2-ospf4-m4")
-
-    different_addresses = [
-        line.split("\t", maxsplit=1)[0].strip()
-        for index, line in enumerate(file1)
-        if file1[index] != file2[index]
+@pytest.mark.skipif(cf.save == True, reason="mode: check")
+@pytest.mark.parametrize(
+    "exp_devs, protocol",
+    [
+        pytest.param("m3", "ospf4"),
+        pytest.param("m4", "ospf4"),
+        pytest.param("m5", "ospf4"),
+        pytest.param("m6", "ospf4")
     ]
-    assert expected_addresses == different_addresses
-
+)
+def test_different_priorities_after_reconf(exp_devs: str, protocol: str):
+    assert \
+    tk.read_file(f"temp/neighbor-cf1-{protocol}-{exp_devs}") \
+    != tk.read_file(f"temp/neighbor-cf2-{protocol}-{exp_devs}")
 
