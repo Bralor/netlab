@@ -1,0 +1,5 @@
+BIRD <removed> ready.
+ospf4:
+Router ID   	Pri	     State     	DTime	Interface  Router IP
+10.0.0.2    	  1	Full/PtP  	<time removed>	ve1        10.0.2.2
+10.0.0.3    	 10	Full/PtP  	<time removed>	ve2        10.0.1.1
